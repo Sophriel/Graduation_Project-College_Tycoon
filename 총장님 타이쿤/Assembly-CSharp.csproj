@@ -61,6 +61,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\etc\iTween.cs" />
+    <Compile Include="Assets\etc\Low Poly Modular Terrain Pack\Bonus_Assets\Scripts\ModularTerrainCameraControl.cs" />
+    <Compile Include="Assets\etc\Low Poly Modular Terrain Pack\Bonus_Assets\Scripts\ModularTerrainCloudsControl.cs" />
+    <Compile Include="Assets\etc\Low Poly Modular Terrain Pack\Bonus_Assets\Scripts\ModularTerrainSunControl.cs" />
     <Compile Include="Assets\Scripts\Ingame\Building.cs" />
     <Compile Include="Assets\Scripts\Ingame\GUICamera.cs" />
     <Compile Include="Assets\Scripts\Ingame\MainCamera.cs" />

@@ -30,9 +30,12 @@ public class MainCamera : MonoBehaviour
         Target.position += Quaternion.Euler(0.0f, transform.rotation.eulerAngles.y, 0.0f) * movement * (distance * 0.25f) * MoveSpeed * Time.deltaTime;
 
         //  카메라 회전
-        xAngle -= Input.GetAxis("Mouse Y") * Sensitivity * Time.deltaTime;
-        xAngle = Mathf.Clamp(xAngle, 5.0f, 85.0f);
-        yAngle += Input.GetAxis("Mouse X") * Sensitivity * Time.deltaTime;
+        if (!MouseManager.Instance.BuildMode)
+        {
+            xAngle -= Input.GetAxis("Mouse Y") * Sensitivity * Time.deltaTime;
+            xAngle = Mathf.Clamp(xAngle, 5.0f, 85.0f);
+            yAngle += Input.GetAxis("Mouse X") * Sensitivity * Time.deltaTime;
+        }
 
         //  줌인 줌아웃
         distance -= Input.GetAxis("Mouse ScrollWheel") * ZoomSpeed * Time.deltaTime;

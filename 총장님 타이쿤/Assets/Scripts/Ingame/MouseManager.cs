@@ -56,6 +56,8 @@ public class MouseManager : MonoBehaviour
     public Vector3 PointingPosition;
     public GameObject PickedObject;
 
+    public float RotationSpeed = 150.0f;
+
 
     private void Start()
     {
@@ -207,13 +209,18 @@ public class MouseManager : MonoBehaviour
 
         CastMainCamera(1 << LayerMask.NameToLayer("Terrain"));
 
+        //  오브젝트 이동 회전
         PickedObject.transform.position = PointingPosition;
+        PickedObject.transform.rotation = Quaternion.Euler( 0.0f, 
+            PickedObject.transform.rotation.eulerAngles.y + Input.GetAxis("Mouse X") * RotationSpeed * Time.deltaTime, 0.0f);
 
         if (EnableToBuild())
             PickedObject.GetComponent<MeshRenderer>().material.color = Color.green;
 
         else
             PickedObject.GetComponent<MeshRenderer>().material.color = Color.red;
+
+
     }
 
     private void EscapeBuildMode()
@@ -259,6 +266,9 @@ public class MouseManager : MonoBehaviour
 
     private void CancelBuilding()
     {
+        if (!PickedObject)
+            return;
+
         //  새로 생성된 빌딩
         if (PickedObject.GetComponent<Building>().IsInstance)
             Destroy(PickedObject);
