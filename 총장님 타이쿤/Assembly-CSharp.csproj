@@ -60,6 +60,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\etc\CivilCharactersPack\Scripts\CharacterCustomization.cs" />
+    <Compile Include="Assets\etc\CivilCharactersPack\Scripts\InstanciateCharacter.cs" />
     <Compile Include="Assets\etc\iTween.cs" />
     <Compile Include="Assets\etc\Low Poly Modular Terrain Pack\Bonus_Assets\Scripts\ModularTerrainCameraControl.cs" />
     <Compile Include="Assets\etc\Low Poly Modular Terrain Pack\Bonus_Assets\Scripts\ModularTerrainCloudsControl.cs" />
