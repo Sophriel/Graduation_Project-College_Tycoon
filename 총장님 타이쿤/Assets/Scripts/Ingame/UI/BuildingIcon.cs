@@ -6,6 +6,12 @@ public class BuildingIcon : MonoBehaviour
 {
     public GameObject BuildingPrefab;
 
+    public void OnClick()
+    {
+        MouseManager.Instance.PickedObject = CreateBuilding();
+        MouseManager.Instance.StartBuilding();
+    }
+
     public GameObject CreateBuilding()
     {
         GameObject building;
@@ -17,11 +23,5 @@ public class BuildingIcon : MonoBehaviour
         building.AddComponent<Building>().IsInstance = true;
 
         return building;
-    }
-
-    public void OnClick()
-    {
-        MouseManager.Instance.PickedObject = CreateBuilding();
-        MouseManager.Instance.StartBuilding();
     }
 }

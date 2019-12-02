@@ -60,7 +60,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\etc\terrain\toolkit\editor\TerrainToolkitEditor.cs" />
+    <Compile Include="Assets\etc\PiUi\Editor\PieUIEditor.cs" />
+    <Compile Include="Assets\etc\PiUi\Editor\PieUIManagerEditor.cs" />
+    <Compile Include="Assets\etc\Pixelplacement\iTweenPath\Editor\iTweenPathEditor.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>C:/Users/Sophriel/OneDrive - 홍익대학교/홍익대학교/코딩/졸작쓰/총장님 타이쿤/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>

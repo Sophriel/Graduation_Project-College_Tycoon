@@ -18,6 +18,7 @@ public class BuildMenuButton : MonoBehaviour
             ChildBar.OpenBar();
 
             //  연출
+            gameObject.SetActive(true);
             iTween.RotateTo(gameObject, iTween.Hash("z", -45.0f, "easetype", "easeOutQuart", "time", 0.3f));
 
             Is_Open = true;
@@ -30,9 +31,14 @@ public class BuildMenuButton : MonoBehaviour
             ChildBar.CloseBar();
 
             //  연출
-            iTween.RotateTo(gameObject, iTween.Hash("z", 0.0f, "easetype", "easeInQuart", "time", 0.3f));
+            iTween.RotateTo(gameObject, iTween.Hash("z", 0.0f, "easetype", "easeInQuart", "time", 0.3f, "oncomplete", "DisableButton"));
 
             Is_Open = false;
         }
+    }
+
+    private void DisableButton()
+    {
+        gameObject.SetActive(false);
     }
 }

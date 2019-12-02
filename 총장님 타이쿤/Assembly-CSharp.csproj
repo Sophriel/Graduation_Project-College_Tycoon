@@ -61,12 +61,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\etc\CivilCharactersPack\Scripts\CharacterCustomization.cs" />
-    <Compile Include="Assets\etc\CivilCharactersPack\Scripts\InstanciateCharacter.cs" />
-    <Compile Include="Assets\etc\iTween.cs" />
     <Compile Include="Assets\etc\Low Poly Modular Terrain Pack\Bonus_Assets\Scripts\ModularTerrainCameraControl.cs" />
     <Compile Include="Assets\etc\Low Poly Modular Terrain Pack\Bonus_Assets\Scripts\ModularTerrainCloudsControl.cs" />
     <Compile Include="Assets\etc\Low Poly Modular Terrain Pack\Bonus_Assets\Scripts\ModularTerrainSunControl.cs" />
+    <Compile Include="Assets\etc\PiUi\Scripts\PiPiece.cs" />
+    <Compile Include="Assets\etc\PiUi\Scripts\PiUI.cs" />
+    <Compile Include="Assets\etc\PiUi\Scripts\PiUIManager.cs" />
+    <Compile Include="Assets\etc\Pixelplacement\iTween.cs" />
+    <Compile Include="Assets\etc\Pixelplacement\iTweenPath\iTweenPath.cs" />
     <Compile Include="Assets\Scripts\Ingame\Building.cs" />
+    <Compile Include="Assets\Scripts\Ingame\CharacterFSM.cs" />
     <Compile Include="Assets\Scripts\Ingame\GUICamera.cs" />
     <Compile Include="Assets\Scripts\Ingame\MainCamera.cs" />
     <Compile Include="Assets\Scripts\Ingame\MouseManager.cs" />
@@ -74,6 +78,8 @@
     <Compile Include="Assets\Scripts\Ingame\UI\BuildingIcon.cs" />
     <Compile Include="Assets\Scripts\Ingame\UI\BuildMenuBar.cs" />
     <Compile Include="Assets\Scripts\Ingame\UI\BuildMenuButton.cs" />
+    <Compile Include="Assets\Scripts\Main\AssistantTutorial.cs" />
+    <Compile Include="Assets\Scripts\Main\MainManager.cs" />
     <None Include="Assets\etc\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\etc\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
     <None Include="Assets\etc\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />

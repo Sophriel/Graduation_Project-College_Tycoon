@@ -51,6 +51,11 @@ public class MouseManager : MonoBehaviour
     private bool isMainRayHit;
     private float maxDistance = 100.0f;
 
+    [SerializeField]
+    PiUIManager piUi;
+    private bool menuOpened;
+    private PiUI normalMenu;
+
     public bool BuildMode = false;
     public GameObject PointingObject;
     public Vector3 PointingPosition;
@@ -63,6 +68,8 @@ public class MouseManager : MonoBehaviour
     {
         mainCamera = FindObjectOfType<MainCamera>();
         guiCamera = FindObjectOfType<GUICamera>();
+
+        normalMenu = piUi.GetPiUIOf("Right Click Menu");
     }
 
     private void Update()
@@ -70,13 +77,27 @@ public class MouseManager : MonoBehaviour
         if (Input.GetButtonDown("Cancel"))
         {
             CancelBuilding();
-            return;
         }
 
-        if (Input.GetButtonDown("LeftClick"))
+        else if (Input.GetButtonDown("LeftClick"))
         {
             ClickObject();
-            return;
+        }
+
+        else if (Input.GetButtonDown("RightClick") && !BuildMode)
+        {
+            if (!piUi.PiOpened("Right Click Menu"))
+            {
+                piUi.ChangeMenuState("Right Click Menu", Input.mousePosition);
+            }
+        }
+
+        else if (Input.GetButtonUp("RightClick") && !BuildMode)
+        {
+            if (piUi.PiOpened("Right Click Menu"))
+            {
+                piUi.ChangeMenuState("Right Click Menu", Input.mousePosition);
+            }
         }
 
         if (BuildMode)
@@ -85,6 +106,7 @@ public class MouseManager : MonoBehaviour
         }
     }
 
+    /// <summary> 필드로 캐스팅 </summary> 
     private void CastMainCamera(int layerMask)
     {
         Ray mainRay = mainCamera.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
@@ -104,6 +126,7 @@ public class MouseManager : MonoBehaviour
         }
     }
 
+    /// <summary> UI로 캐스팅 </summary> 
     private bool CastGuiCamera()
     {
         Ray guiRay = guiCamera.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
@@ -121,6 +144,7 @@ public class MouseManager : MonoBehaviour
         //  평상시
         if (!BuildMode)
         {
+            //  UI의 클릭을 먼저 검사
             if (CastGuiCamera())
                 return;
 
@@ -199,6 +223,7 @@ public class MouseManager : MonoBehaviour
         PickedObject.GetComponent<Collider>().isTrigger = true;
     }
 
+    /// <summary> 빌드 모드에서 빌딩에 대한 입력, 조건 처리 </summary>  
     private void OnBuildMode()
     {
         if (!PickedObject)
@@ -211,16 +236,14 @@ public class MouseManager : MonoBehaviour
 
         //  오브젝트 이동 회전
         PickedObject.transform.position = PointingPosition;
-        PickedObject.transform.rotation = Quaternion.Euler( 0.0f, 
+        PickedObject.transform.rotation = Quaternion.Euler(0.0f,
             PickedObject.transform.rotation.eulerAngles.y + Input.GetAxis("Mouse X") * RotationSpeed * Time.deltaTime, 0.0f);
 
+        //  오브젝트 색상 변경
         if (EnableToBuild())
             PickedObject.GetComponent<MeshRenderer>().material.color = Color.green;
-
         else
             PickedObject.GetComponent<MeshRenderer>().material.color = Color.red;
-
-
     }
 
     private void EscapeBuildMode()
@@ -239,7 +262,7 @@ public class MouseManager : MonoBehaviour
         PointingObject = null;
     }
 
-    //  돈 체크 해야함.
+    /// <summary> 돈 체크 해야함. </summary>
     private bool EnableToBuild()
     {
         if (!PickedObject)
@@ -257,7 +280,7 @@ public class MouseManager : MonoBehaviour
         return true;
     }
 
-    //  돈 지불 해야함.
+    /// <summary> 돈 지불 해야함. </summary> 
     private void ConfirmBuilding()
     {
         PickedObject.GetComponent<Building>().IsInstance = false;
