@@ -155,7 +155,7 @@ public class PiUI : MonoBehaviour
         }
         innerRadius *= scaleModifier;
         outerRadius *= scaleModifier;
-        GeneratePi(new Vector2(-1000, -1000));
+        GeneratePi(new Vector2(-5000, -5000));
     }
 
 

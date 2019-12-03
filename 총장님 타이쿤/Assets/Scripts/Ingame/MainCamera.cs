@@ -7,6 +7,7 @@ public class MainCamera : MonoBehaviour
 {
     public Transform Target;
     private Vector3 camDir;
+    private float camSpeed;
 
     //  카메라 이동 변수
     private Vector3 movement;
@@ -18,12 +19,26 @@ public class MainCamera : MonoBehaviour
     public float Sensitivity = 150.0f;
 
     //  카메라 줌 변수
-    private float distance;
+    private float distance = 100.0f;
     private float minDistance = 5.0f;
     private float maxDistance = 100.0f;
     public float ZoomSpeed = 1.0f;
 
-    void Update()
+    private void Start()
+    {
+        StartCoroutine(CameraWork());
+    }
+
+    IEnumerator CameraWork()
+    {
+        camSpeed = 2.5f;
+
+        yield return new WaitForSeconds(5.0f);
+
+        camSpeed = 0.8f;
+    }
+
+    private void Update()
     {
         //  카메라 이동
         movement.Set(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical"));
@@ -45,7 +60,7 @@ public class MainCamera : MonoBehaviour
 
         //  카메라 위치설정
         camDir = Quaternion.Euler(xAngle, yAngle, 0.0f) * Vector3.forward;
-        iTween.MoveUpdate(gameObject, iTween.Hash("position", Target.position + (camDir * -distance), "time", 0.8f));
+        iTween.MoveUpdate(gameObject, iTween.Hash("position", Target.position + (camDir * -distance), "time", camSpeed));
 
         //  타겟 시선고정
         transform.LookAt(Target.position);

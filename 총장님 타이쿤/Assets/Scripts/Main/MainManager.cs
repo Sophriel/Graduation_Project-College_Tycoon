@@ -7,6 +7,47 @@ using TMPro;
 
 public class MainManager : MonoBehaviour
 {
+    #region Singleton
+
+    private static volatile MainManager instance;
+    private static object _lock = new System.Object();
+
+    public static MainManager Instance
+    {
+        get
+        {
+            if (instance != null)
+                return instance;
+
+            instance = FindObjectOfType<MainManager>();
+
+            if (instance != null)
+                return instance;
+
+            CreateThis();
+
+            return instance;
+        }
+    }
+
+    public static MainManager CreateThis()
+    {
+        GameObject MouseManagerGameObject = new GameObject("Main Manager");
+
+        //  하나의 스레드로만 접근 가능하도록 lock
+        lock (_lock)
+            instance = MouseManagerGameObject.AddComponent<MainManager>();
+
+        return instance;
+    }
+
+    void Awake()
+    {
+        instance = this;
+    }
+
+    #endregion
+
     public GameObject Cam;
     private iTweenPath itPath;
     public GameObject Fade;
@@ -125,8 +166,15 @@ public class MainManager : MonoBehaviour
 
     #endregion
 
-    private void ChangeScene(string scene)
+    public IEnumerator ChangeScene(string scene)
     {
+        Fade.GetComponent<Image>().color = new Color(1f, 1f, 1f, 0f);
+
+        iTween.ValueTo(gameObject, iTween.Hash("from", 0f, "to", 255f, "time", 2.5f,
+            "easetype", "easeOutCubic", "onupdate", "FadeUpdate"));
+
+        yield return new WaitForSeconds(3.0f);
+
         SceneManager.LoadScene(scene);
     }
 }

@@ -71,6 +71,7 @@
     <Compile Include="Assets\etc\Pixelplacement\iTweenPath\iTweenPath.cs" />
     <Compile Include="Assets\Scripts\Ingame\Building.cs" />
     <Compile Include="Assets\Scripts\Ingame\CharacterFSM.cs" />
+    <Compile Include="Assets\Scripts\Ingame\GameManager.cs" />
     <Compile Include="Assets\Scripts\Ingame\GUICamera.cs" />
     <Compile Include="Assets\Scripts\Ingame\MainCamera.cs" />
     <Compile Include="Assets\Scripts\Ingame\MouseManager.cs" />
