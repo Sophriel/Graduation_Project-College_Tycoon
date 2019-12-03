@@ -88,6 +88,8 @@ public class AssistantTutorial : MonoBehaviour
         Text.text = "새로 오신 총쟝님을 위한 튜토리얼 \n";
         yield return new WaitForSeconds(1.5f);
         Text.text += "맵이 있댱! \n";
+        yield return new WaitForSeconds(1.5f);
+        Text.text += "선택해보라냥! \n";
         yield return new WaitUntil(ContinueDialog);
         SetDialogFlag(false);
         CloseTutorialUI(LandUI);

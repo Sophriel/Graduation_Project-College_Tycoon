@@ -21,7 +21,7 @@ public class MainCamera : MonoBehaviour
     //  카메라 줌 변수
     private float distance = 100.0f;
     private float minDistance = 5.0f;
-    private float maxDistance = 100.0f;
+    private float maxDistance = 200.0f;
     public float ZoomSpeed = 1.0f;
 
     private void Start()

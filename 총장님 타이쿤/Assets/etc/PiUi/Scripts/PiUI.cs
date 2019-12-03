@@ -155,6 +155,7 @@ public class PiUI : MonoBehaviour
         }
         innerRadius *= scaleModifier;
         outerRadius *= scaleModifier;
+        menuPosition = new Vector2(-5000, -5000);
         GeneratePi(new Vector2(-5000, -5000));
     }
 

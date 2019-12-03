@@ -49,12 +49,9 @@ public class MouseManager : MonoBehaviour
     private MainCamera mainCamera;
     private GUICamera guiCamera;
     private bool isMainRayHit;
-    private float maxDistance = 100.0f;
+    private float maxDistance = 200.0f;
 
-    [SerializeField]
-    PiUIManager piUi;
-    private bool menuOpened;
-    private PiUI normalMenu;
+    public PiUIManager piUi;
 
     public bool BuildMode = false;
     public GameObject PointingObject;
@@ -68,11 +65,19 @@ public class MouseManager : MonoBehaviour
     {
         mainCamera = FindObjectOfType<MainCamera>();
         guiCamera = FindObjectOfType<GUICamera>();
-
-        normalMenu = piUi.GetPiUIOf("Right Click Menu");
     }
 
     private void Update()
+    {
+        InputUpdate();
+
+        if (BuildMode)
+        {
+            OnBuildMode();
+        }
+    }
+
+    private void InputUpdate()
     {
         if (Input.GetButtonDown("Cancel"))
         {
@@ -98,11 +103,6 @@ public class MouseManager : MonoBehaviour
             {
                 piUi.ChangeMenuState("Right Click Menu", Input.mousePosition);
             }
-        }
-
-        if (BuildMode)
-        {
-            OnBuildMode();
         }
     }
 

@@ -79,6 +79,7 @@
     <Compile Include="Assets\Scripts\Ingame\UI\BuildingIcon.cs" />
     <Compile Include="Assets\Scripts\Ingame\UI\BuildMenuBar.cs" />
     <Compile Include="Assets\Scripts\Ingame\UI\BuildMenuButton.cs" />
+    <Compile Include="Assets\Scripts\Ingame\UI\IngameTutorial.cs" />
     <Compile Include="Assets\Scripts\Main\AssistantTutorial.cs" />
     <Compile Include="Assets\Scripts\Main\MainManager.cs" />
     <None Include="Assets\etc\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />

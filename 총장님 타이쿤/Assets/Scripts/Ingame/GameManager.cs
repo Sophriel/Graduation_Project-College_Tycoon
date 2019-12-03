@@ -13,8 +13,8 @@ public class GameManager : MonoBehaviour
         fadeImage = Fade.GetComponent<Image>();
 
         Fade.GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
-        iTween.ValueTo(gameObject, iTween.Hash("from", 255f, "to", 0f, "time", 2.5f,
-            "easetype", "easeOutCubic", "onupdate", "FadeUpdate"));
+        iTween.ValueTo(gameObject, iTween.Hash("from", 255f, "to", 0f, "time", 1.5f,
+            "easetype", "easeInCubic", "onupdate", "FadeUpdate"));
 
     }
 
