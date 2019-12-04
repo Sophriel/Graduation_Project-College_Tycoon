@@ -46,6 +46,28 @@ public class MouseManager : MonoBehaviour
 
     #endregion
 
+    #region Observer
+
+    public delegate void MouseEvent(bool flag);
+    private MouseEvent onMouseEvent;
+
+    public void SetMouseEvent(MouseEvent func)
+    {
+        onMouseEvent = func;
+    }
+
+    public void AddMouseEvent(MouseEvent func)
+    {
+        onMouseEvent += func;
+    }
+
+    public void ClearMouseEvent()
+    {
+        onMouseEvent = null ;
+    }
+
+    #endregion
+
     private MainCamera mainCamera;
     private GUICamera guiCamera;
     private bool isMainRayHit;
@@ -57,7 +79,6 @@ public class MouseManager : MonoBehaviour
     public GameObject PointingObject;
     public Vector3 PointingPosition;
     public GameObject PickedObject;
-
     public float RotationSpeed = 150.0f;
 
 
@@ -285,6 +306,8 @@ public class MouseManager : MonoBehaviour
     {
         PickedObject.GetComponent<Building>().IsInstance = false;
         EscapeBuildMode();
+
+        onMouseEvent(true);
     }
 
     private void CancelBuilding()
