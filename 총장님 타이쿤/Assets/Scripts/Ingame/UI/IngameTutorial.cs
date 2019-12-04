@@ -12,6 +12,8 @@ public class IngameTutorial : MonoBehaviour
     public bool DialogFlag;
     public TextMeshPro Text;
 
+    public Transform CameraPos;
+
 
     void Start()
     {
@@ -25,8 +27,30 @@ public class IngameTutorial : MonoBehaviour
         StartCoroutine(Tutorial());
     }
 
+    private void Update()
+    {
+        DialogBox.transform.LookAt(CameraPos.position);
+    }
+
     IEnumerator Tutorial()
     {
+        //  이동
+        //  대화
+        //  카메라 움직임
+        //  대화
+        //  오른쪽 마우스
+        //  대화
+        //  건물 패널 열고
+        //  대화
+        //  건물 선택해서 짓고
+        //  대화
+
+        //  말풍선 새로운거
+        //  사운드, 배경음 추가
+
+
+
+        anim.SetBool("Point", false);
         DialogBox.SetActive(true);
         Text.text = "";
         yield return new WaitForSeconds(2.0f);
@@ -35,17 +59,32 @@ public class IngameTutorial : MonoBehaviour
 
         Text.text = "여기가 튜토리얼 맵입니댱! \n";
         yield return new WaitForSeconds(1.5f);
-        Text.text += "천국에 오신것을 환영합니댱! \n";
+        Text.text += "먼저 카메라를 움직여봅시댱! \n";
         yield return new WaitForSeconds(1.5f);
-        for (int i = 0; i < 3; i++)
-        {
-            Text.text += ".";
-            yield return new WaitForSeconds(0.5f);
-        }
+        Text.text += "WASD로 왔다갔다합니댱! \n";
+        yield return new WaitUntil(ContinueDialog);
+        yield return new WaitForSeconds(3.0f);
+        SetDialogFlag(false);
 
-        anim.SetBool("Point", false);
+        Text.text = "그 다음 줌을 당겨봅시댱! \n";
+        yield return new WaitForSeconds(1.5f);
+        Text.text += "마우스 휠로 저에게 가까이 와보라냥! \n";
         yield return new WaitUntil(ContinueDialog);
         SetDialogFlag(false);
+        yield return new WaitForSeconds(2.0f);
+
+        Text.text = "으앗 너무 가깝습니댱! \n";
+        yield return new WaitForSeconds(2.0f);
+        //  뒤로 이동
+
+
+        Text.text = "Q E 키로 빙글빙글 돌 수 있고 \n";
+        yield return new WaitForSeconds(2.0f);
+        Text.text += "방향키 위아래로 끄덕끄덕 할 수 있습니댱! \n";
+        yield return new WaitUntil(ContinueDialog);
+        yield return new WaitForSeconds(3.0f);
+        SetDialogFlag(false);
+
 
         OnOffDialog();
         Text.text = "";
@@ -104,4 +143,23 @@ public class IngameTutorial : MonoBehaviour
     {
         iTween.MoveAdd(gameObject, Vector3.up * 3f, 1.5f);
     }
+
+    private void WASDCheck()
+    {
+        if (Input.GetAxis("Mouse ScrollWheel") > 0f || Input.GetAxis("Mouse ScrollWheel") > 0f)
+            SetDialogFlag(true);
+    }
+
+    private void ZoomCheck()
+    {
+        if (Input.GetAxis("Mouse ScrollWheel") > 0f)
+            SetDialogFlag(true);
+    }
+
+    private void RotationCheck()
+    {
+        if (Input.GetAxis("Mouse X") > 0f || Input.GetAxis("Mouse Y") > 0f)
+            SetDialogFlag(true);
+    }
+
 }
