@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
         iTween.ValueTo(gameObject, iTween.Hash("from", 255f, "to", 0f, "time", 1.5f,
             "easetype", "easeInCubic", "onupdate", "FadeUpdate"));
 
+        SoundManager.Instance.FadeOut(0, 20, 5.0f);
     }
 
     private void FadeUpdate(int alpha)

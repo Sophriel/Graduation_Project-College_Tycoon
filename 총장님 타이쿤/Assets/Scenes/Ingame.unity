@@ -2039,11 +2039,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 0
+  m_havePropertiesChanged: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -6157,7 +6157,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1128807763
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8680,6 +8680,7 @@ MonoBehaviour:
   DialogBox: {fileID: 1861966995108660118}
   DialogFlag: 0
   Text: {fileID: 0}
+  BuildMenuBar: {fileID: 1128807762}
   CameraPos: {fileID: 534669905}
 --- !u!114 &1551852503
 MonoBehaviour:
@@ -9732,7 +9733,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1689812853}
   - component: {fileID: 1689812850}
-  - component: {fileID: 1689812852}
   - component: {fileID: 1689812851}
   m_Layer: 0
   m_Name: GUI Camera
@@ -9795,14 +9795,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fa736b9ffcee0e4d9699a7c69273b3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!81 &1689812852
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1689812849}
-  m_Enabled: 1
 --- !u!4 &1689812853
 Transform:
   m_ObjectHideFlags: 0
@@ -10988,11 +10980,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 0
+  m_havePropertiesChanged: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -11149,11 +11141,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 0
+  m_havePropertiesChanged: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -11310,11 +11302,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 0
+  m_havePropertiesChanged: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -11787,7 +11779,7 @@ PrefabInstance:
     - target: {fileID: 114358342674604368, guid: f8d1463efe512bc4a90597e508985031,
         type: 3}
       propertyPath: piData.Array.data[0].onSlicePressed.m_PersistentCalls.m_Calls.Array.size
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 114358342674604368, guid: f8d1463efe512bc4a90597e508985031,
         type: 3}
@@ -12196,7 +12188,7 @@ PrefabInstance:
     - target: {fileID: 114358342674604368, guid: f8d1463efe512bc4a90597e508985031,
         type: 3}
       propertyPath: piData.Array.data[0].onSlicePressed.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 114358342674604368, guid: f8d1463efe512bc4a90597e508985031,
         type: 3}
@@ -12207,11 +12199,11 @@ PrefabInstance:
         type: 3}
       propertyPath: piData.Array.data[0].onSlicePressed.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
-      objectReference: {fileID: 1551852502}
+      objectReference: {fileID: 0}
     - target: {fileID: 114358342674604368, guid: f8d1463efe512bc4a90597e508985031,
         type: 3}
       propertyPath: piData.Array.data[0].onSlicePressed.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
-      value: OpenPanelCheck
+      value: PlayEffect
       objectReference: {fileID: 0}
     - target: {fileID: 114358342674604368, guid: f8d1463efe512bc4a90597e508985031,
         type: 3}
@@ -12222,6 +12214,11 @@ PrefabInstance:
         type: 3}
       propertyPath: piData.Array.data[0].onSlicePressed.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_BoolArgument
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114358342674604368, guid: f8d1463efe512bc4a90597e508985031,
+        type: 3}
+      propertyPath: piData.Array.data[0].onSlicePressed.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_IntArgument
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1554814401622004, guid: f8d1463efe512bc4a90597e508985031, type: 3}
       propertyPath: m_IsActive

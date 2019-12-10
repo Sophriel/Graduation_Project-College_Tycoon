@@ -16,6 +16,8 @@ public class BuildingCategoryButton : MonoBehaviour
 
     public void OnClick()
     {
+        SoundManager.Instance.PlayEffect((int)SoundManager.Effect.Click);
+
         //  열기
         if (!Is_Open)
         {

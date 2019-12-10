@@ -8,6 +8,8 @@ public class BuildingIcon : MonoBehaviour
 
     public void OnClick()
     {
+        SoundManager.Instance.PlayEffect((int)SoundManager.Effect.Click);
+
         MouseManager.Instance.PickedObject = CreateBuilding();
         MouseManager.Instance.StartBuilding();
     }

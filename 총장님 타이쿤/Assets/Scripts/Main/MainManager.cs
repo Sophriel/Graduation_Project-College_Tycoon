@@ -75,6 +75,7 @@ public class MainManager : MonoBehaviour
         fadeImage = Fade.GetComponent<Image>();
 
         StartCoroutine(MainCoroutine());
+        SoundManager.Instance.FadeOut(10, 35, 10.0f);
     }
 
     #region 페이드

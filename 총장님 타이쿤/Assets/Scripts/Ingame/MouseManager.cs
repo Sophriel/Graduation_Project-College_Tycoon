@@ -63,7 +63,8 @@ public class MouseManager : MonoBehaviour
 
     public void ClearMouseEvent()
     {
-        onMouseEvent = null ;
+        if(onMouseEvent != null)
+           onMouseEvent = null;
     }
 
     #endregion
@@ -236,6 +237,8 @@ public class MouseManager : MonoBehaviour
             return;
         }
 
+        SoundManager.Instance.PlayEffect((int)SoundManager.Effect.Click);
+
         BuildMode = true;
 
         transform.position = PickedObject.transform.position;
@@ -307,7 +310,8 @@ public class MouseManager : MonoBehaviour
         PickedObject.GetComponent<Building>().IsInstance = false;
         EscapeBuildMode();
 
-        onMouseEvent(true);
+        SoundManager.Instance.PlayEffect((int)SoundManager.Effect.Build);
+        onMouseEvent?.Invoke(true);
     }
 
     private void CancelBuilding()
@@ -323,6 +327,7 @@ public class MouseManager : MonoBehaviour
         else
             PickedObject.transform.position = transform.position;
 
+        SoundManager.Instance.PlayEffect((int)SoundManager.Effect.Cant);
         EscapeBuildMode();
     }
 

@@ -11,6 +11,7 @@ public class IngameTutorial : MonoBehaviour
     private bool isDialogBoxOpen;
     public bool DialogFlag;
     public TextMeshPro Text;
+    public GameObject BuildMenuBar;
 
     public Transform CameraPos;
     private delegate void TutorialCheckPoint();
@@ -47,6 +48,7 @@ public class IngameTutorial : MonoBehaviour
         //  사운드, 배경음 추가
 
         // Init
+        SoundManager.Instance.ChangeBGM(3);
         anim.SetInteger("State", 0);
         DialogBox.SetActive(true);
         Text.text = "";
@@ -109,6 +111,7 @@ public class IngameTutorial : MonoBehaviour
 
         //  건물 패널 열기
         Text.text = "망치버튼 위에서 \n마우스를 떼시면...! \n";
+        checker = OpenPanelCheck;
         yield return new WaitUntil(ContinueDialog);
         yield return new WaitForSeconds(1.0f);
         SetDialogFlag(false);
@@ -131,6 +134,8 @@ public class IngameTutorial : MonoBehaviour
         OnOffDialog();
         Text.text = "튜토리얼은 여기까집니댱! \n";
         MouseManager.Instance.ClearMouseEvent();
+        yield return new WaitForSeconds(2.5f);
+        OnOffDialog();
     }
 
     #region 튜토리얼 UI 조작
@@ -171,7 +176,7 @@ public class IngameTutorial : MonoBehaviour
     #endregion
 
     #region 튜토리얼 체크포인트
-    
+
     ///<summary> 버튼 클릭시 true로 set </summary>  
     public void SetDialogFlag(bool input)
     {
@@ -212,7 +217,8 @@ public class IngameTutorial : MonoBehaviour
 
     public void OpenPanelCheck()
     {
-        SetDialogFlag(true);
+        if (BuildMenuBar.activeInHierarchy)
+            SetDialogFlag(true);
     }
 
     #endregion

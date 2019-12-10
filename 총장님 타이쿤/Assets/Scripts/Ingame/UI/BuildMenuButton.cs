@@ -11,6 +11,8 @@ public class BuildMenuButton : MonoBehaviour
 
     public void OnClick()
     {
+        SoundManager.Instance.PlayEffect((int)SoundManager.Effect.MenuOpen);
+
         //  열기
         if (!Is_Open)
         {

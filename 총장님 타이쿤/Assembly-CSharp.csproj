@@ -82,6 +82,8 @@
     <Compile Include="Assets\Scripts\Ingame\UI\IngameTutorial.cs" />
     <Compile Include="Assets\Scripts\Main\AssistantTutorial.cs" />
     <Compile Include="Assets\Scripts\Main\MainManager.cs" />
+    <Compile Include="Assets\Scripts\SoundManager.cs" />
+    <None Include="Assets\etc\Low Poly Modular Terrain Pack\사용한 프리팹.txt" />
     <None Include="Assets\etc\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\etc\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
     <None Include="Assets\etc\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />

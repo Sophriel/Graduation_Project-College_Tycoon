@@ -29,10 +29,6 @@ public class Building : MonoBehaviour
         }
     }
 
-    //private void Start()
-    //{
-    //}
-
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Building")
