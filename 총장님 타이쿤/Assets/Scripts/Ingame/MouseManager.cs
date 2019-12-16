@@ -48,23 +48,32 @@ public class MouseManager : MonoBehaviour
 
     #region Observer
 
-    public delegate void MouseEvent(bool flag);
-    private MouseEvent onMouseEvent;
+    public delegate void TutorialEvent(bool flag);
+    private event TutorialEvent onTutorialEvent;
 
-    public void SetMouseEvent(MouseEvent func)
+    public void AddTutorialEvent(TutorialEvent func)
     {
-        onMouseEvent = func;
+        onTutorialEvent += func;
     }
 
-    public void AddMouseEvent(MouseEvent func)
+    public void DeleteTutorialEvent(TutorialEvent func)
     {
-        onMouseEvent += func;
+        if(onTutorialEvent != null)
+            onTutorialEvent -= func;
     }
 
-    public void ClearMouseEvent()
+    public delegate void BuildEvent(GameObject building);
+    private event BuildEvent onBuildEvent;
+
+    public void AddBuildEvent(BuildEvent func)
     {
-        if(onMouseEvent != null)
-           onMouseEvent = null;
+        onBuildEvent += func;
+    }
+
+    public void DeleteBuildEvent(BuildEvent func)
+    {
+        if (onBuildEvent != null)
+            onBuildEvent -= func;
     }
 
     #endregion
@@ -308,10 +317,14 @@ public class MouseManager : MonoBehaviour
     private void ConfirmBuilding()
     {
         PickedObject.GetComponent<Building>().IsInstance = false;
-        EscapeBuildMode();
+
+        //  건설시 옵저버 Notify
+        onTutorialEvent?.Invoke(true);
+        onBuildEvent?.Invoke(PickedObject);
+
+        EscapeBuildMode();  //  빌드모드 종료
 
         SoundManager.Instance.PlayEffect((int)SoundManager.Effect.Build);
-        onMouseEvent?.Invoke(true);
     }
 
     private void CancelBuilding()

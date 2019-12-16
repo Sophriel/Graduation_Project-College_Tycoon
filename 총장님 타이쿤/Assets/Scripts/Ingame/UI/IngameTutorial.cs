@@ -44,9 +44,6 @@ public class IngameTutorial : MonoBehaviour
 
     IEnumerator Tutorial()
     {
-        //  말풍선 새로운거
-        //  사운드, 배경음 추가
-
         // Init
         SoundManager.Instance.ChangeBGM(3);
         anim.SetInteger("State", 0);
@@ -126,14 +123,14 @@ public class IngameTutorial : MonoBehaviour
         Text.text += "건물 버튼을 눌러 \n 마음에 드는 건물을 지어보셔량! \n";
         yield return new WaitForSeconds(2.5f);
         OnOffDialog();
-        MouseManager.Instance.SetMouseEvent(new MouseManager.MouseEvent(SetDialogFlag));
+        MouseManager.Instance.AddTutorialEvent(SetDialogFlag);
         yield return new WaitUntil(ContinueDialog);
         yield return new WaitForSeconds(1.0f);
 
         SetDialogFlag(false);
         OnOffDialog();
         Text.text = "튜토리얼은 여기까집니댱! \n";
-        MouseManager.Instance.ClearMouseEvent();
+        MouseManager.Instance.DeleteTutorialEvent(SetDialogFlag);
         yield return new WaitForSeconds(2.5f);
         OnOffDialog();
     }
