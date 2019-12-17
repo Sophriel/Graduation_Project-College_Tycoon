@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-#region 캐릭터 FSM
+#region Enums
 
 public enum CharacterState
 {
@@ -13,9 +13,18 @@ public enum CharacterState
     Walk
 }
 
+public enum PathFindMethod
+{
+    BFS = 0,
+    Astar
+}
+
+#endregion
+
 public class CharacterFSM : MonoBehaviour
 {
     public CharacterState State;
+    public PathFindMethod Method;
 
     private Animator anim;
     private CharacterCustomization cc;
@@ -46,44 +55,6 @@ public class CharacterFSM : MonoBehaviour
         Nodes = new Dictionary<Vector3, PathNode>();  //  경로 탐색용 노드 Dictionary
         Keys = new List<Vector3>(Nodes.Keys);  //  노드 key값 저장 List
         Paths = new Stack<Vector3>();  //  확정된 경로 Stack
-
-        MouseManager.Instance.AddBuildEvent(SetTarget);
-    }
-
-    private void SetTarget(GameObject dest)
-    {
-        Destination = dest;
-        StopCoroutine("FollowPath");
-
-        if (FindPathWithBFS())
-        {
-            State = CharacterState.Walk;
-            StartCoroutine("FollowPath");
-        }
-
-        else
-            State = CharacterState.Idle;
-    }
-
-    /// <summary>
-    /// 설정된 Paths를 따라갑니다.
-    /// </summary>
-    private IEnumerator FollowPath()
-    {
-        while (Paths.Count > 0)
-        {
-            Vector3 nextPath = Paths.Pop();
-            transform.LookAt(nextPath);
-
-            while (transform.position != nextPath && State == CharacterState.Walk)
-            {
-                Debug.DrawLine(transform.position, nextPath, Color.blue, 0.5f);
-                transform.position = Vector3.MoveTowards(transform.position, nextPath, speed * Time.deltaTime);
-                yield return null;
-            }
-        }
-
-        State = CharacterState.Idle;
     }
 
     private void Update()
@@ -95,7 +66,11 @@ public class CharacterFSM : MonoBehaviour
             case CharacterState.Idle:
                 //if (!CastToDirection(Vector3.forward))
                 //    State = CharacterState.Walk;
-                
+
+                //  경로 미설정시 재탐색
+                if (!Destination)
+                    SetTarget(GameManager.Instance.GetRandomBuildingInGame());
+
                 anim.SetBool("walk", false);
                 anim.Play("Idle");
                 break;
@@ -126,20 +101,73 @@ public class CharacterFSM : MonoBehaviour
     //    return false;
     //}
 
+    #region 경로 탐색 알고리즘
+
+    /// <summary>
+    /// 목적지를 설정합니다.
+    /// </summary>
+    /// <param name="dest">목적지로 설정할 GameObject</param>
+    private void SetTarget(GameObject dest)
+    {
+        if (!dest)
+            return;
+
+        Destination = dest;
+
+        TrackTarget();
+    }
+
+    /// <summary>
+    /// 경로 탐색 후 추적합니다.
+    /// </summary>
+    public void TrackTarget()
+    {
+        StopCoroutine("FollowPath");
+        MouseManager.Instance.DeleteBuildEvent(TrackTarget);
+
+        switch (Method)
+        {
+            case PathFindMethod.BFS:
+                if (FindPathWithBFS())
+                    StartCoroutine("FollowPath");
+
+                else
+                {
+                    MouseManager.Instance.AddBuildEvent(TrackTarget);
+                    State = CharacterState.Idle;
+                }
+
+                break;
+            case PathFindMethod.Astar:
+                if (FindPathWithAstar())
+                    StartCoroutine("FollowPath");
+
+                else
+                {
+                    MouseManager.Instance.AddBuildEvent(TrackTarget);
+                    State = CharacterState.Idle;
+                }
+
+                break;
+            default:
+                break;
+        }
+    }
+
     /// <summary>
     /// Destination까지 경로를 BFS 탐색하여 Paths에 저장합니다
     /// </summary>
     private bool FindPathWithBFS()
     {
-        PathNode RootNode;
-        ClearAll();
-
         //  목적지 미할당시
         if (!Destination || !Destination.activeInHierarchy)
         {
             Debug.Log(name + "has no Destination");
             return false;
         }
+
+        PathNode RootNode;
+        ClearAll();
 
         //  루트노드 초기화
         RootNode = new PathNode(this, null, transform.position);
@@ -153,7 +181,7 @@ public class CharacterFSM : MonoBehaviour
         {
             if (Nodes.Count > 100000)
             {
-                Debug.Log(Nodes.Count + "Failed to Find");
+                Debug.Log(Nodes.Count + " " + name + " Failed to Find");
                 return false;
             }
 
@@ -163,9 +191,8 @@ public class CharacterFSM : MonoBehaviour
             i++;
         }
 
-        Debug.Log("Nodes: " + Nodes.Count);
-        Debug.Log("Keys: " + Keys.Count);
-        Debug.Log("Paths: " + Paths.Count);
+        Debug.Log(name + " Nodes: " + Nodes.Count);
+        Debug.Log(name + "Paths: " + Paths.Count);
 
         Nodes.Clear();
         Keys.Clear();
@@ -174,6 +201,43 @@ public class CharacterFSM : MonoBehaviour
         return true;
     }
 
+    /// <summary>
+    /// Destination까지 경로를 Astar 탐색하여 Paths에 저장합니다
+    /// </summary>
+    private bool FindPathWithAstar()
+    {
+        return false;
+    }
+
+    /// <summary>
+    /// 설정된 Paths를 따라갑니다.
+    /// </summary>
+    private IEnumerator FollowPath()
+    {
+        MouseManager.Instance.AddBuildEvent(TrackTarget);  //  경로에 도달할 때 까지 Observe
+        State = CharacterState.Walk;
+
+        while (Paths.Count > 0)
+        {
+            Vector3 nextPath = Paths.Pop();
+            transform.LookAt(nextPath);
+
+            while (transform.position != nextPath && State == CharacterState.Walk)
+            {
+                Debug.DrawLine(transform.position, nextPath, Color.blue, 0.1f);
+                transform.position = Vector3.MoveTowards(transform.position, nextPath, speed * Time.deltaTime);
+                yield return null;
+            }
+        }
+
+        Destination = null;
+        State = CharacterState.Idle;
+        MouseManager.Instance.DeleteBuildEvent(TrackTarget);
+    }
+
+    /// <summary>
+    /// 모든 Collection을 정리합니다.
+    /// </summary>
     private void ClearAll()
     {
         Nodes.Clear();
@@ -181,11 +245,11 @@ public class CharacterFSM : MonoBehaviour
         Paths.Clear();
         GC.Collect();
     }
+
+    #endregion
 }
 
-#endregion
-
-#region 경로 찾기
+#region PathNode Class
 
 public class PathNode
 {
@@ -218,10 +282,10 @@ public class PathNode
         for (int i = 0; i < dir; i++)
         {
             Ray ray = new Ray(pos + Vector3.up, Quaternion.Euler(0f, (360.0f / dir) * i, 0f) * Vector3.forward);
-            bool hit = Physics.SphereCast(pos, 0.1f, Quaternion.Euler(0f, (360.0f / dir) * i, 0f) * Vector3.forward,
-                out RaycastHit hitInfo, dist, layermask);
+            bool hit = Physics.SphereCast(ray, 0.1f, out RaycastHit hitInfo, dist, layermask);
 
-            Debug.DrawRay(pos + Vector3.up, Quaternion.Euler(0f, (360.0f / dir) * i, 0f) * Vector3.forward * dist, Color.red, 3.0f);
+            Debug.DrawRay(pos + Vector3.up, 
+                Quaternion.Euler(0f, (360.0f / dir) * i, 0f) * Vector3.forward * dist, Color.red, 2.0f);
 
             //  목적지 발견
             if (hit && hitInfo.transform.gameObject == destination)

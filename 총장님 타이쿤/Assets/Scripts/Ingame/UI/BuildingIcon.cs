@@ -18,6 +18,7 @@ public class BuildingIcon : MonoBehaviour
     {
         GameObject building;
         building = Instantiate(BuildingPrefab);
+        building.tag = "Building";
         building.layer = LayerMask.NameToLayer("Building");
         building.AddComponent<Rigidbody>().useGravity = false;
         building.GetComponent<Rigidbody>().isKinematic = true;

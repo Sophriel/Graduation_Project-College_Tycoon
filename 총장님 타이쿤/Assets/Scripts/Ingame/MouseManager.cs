@@ -46,7 +46,7 @@ public class MouseManager : MonoBehaviour
 
     #endregion
 
-    #region Observer
+    #region Subject of Observers
 
     public delegate void TutorialEvent(bool flag);
     private event TutorialEvent onTutorialEvent;
@@ -62,7 +62,7 @@ public class MouseManager : MonoBehaviour
             onTutorialEvent -= func;
     }
 
-    public delegate void BuildEvent(GameObject building);
+    public delegate void BuildEvent();
     private event BuildEvent onBuildEvent;
 
     public void AddBuildEvent(BuildEvent func)
@@ -316,11 +316,13 @@ public class MouseManager : MonoBehaviour
     /// <summary> 돈 지불 해야함. </summary> 
     private void ConfirmBuilding()
     {
+        //  게임내에 추가
         PickedObject.GetComponent<Building>().IsInstance = false;
+        GameManager.Instance.AddBuildingInGame(PickedObject);
 
         //  건설시 옵저버 Notify
         onTutorialEvent?.Invoke(true);
-        onBuildEvent?.Invoke(PickedObject);
+        onBuildEvent?.Invoke();
 
         EscapeBuildMode();  //  빌드모드 종료
 
