@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour
 
         Fade.GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
         iTween.ValueTo(gameObject, iTween.Hash("from", 255f, "to", 0f, "time", 1.5f,
-            "easetype", "easeInCubic", "onupdate", "FadeUpdate"));
+            "easetype", "easeInCubic", "onupdate", "FadeUpdate", "oncomplete", "FadeComplete"));
 
         SoundManager.Instance.FadeOut(0, 20, 5.0f);
 
@@ -70,6 +70,11 @@ public class GameManager : MonoBehaviour
     {
         fadeImage.color = new Color(1f, 1f, 1f, alpha / 255f);
     }
+
+	private void FadeComplete()
+	{
+		Fade.SetActive(false);
+	}
 
     #region 게임 내 건물 관리
 

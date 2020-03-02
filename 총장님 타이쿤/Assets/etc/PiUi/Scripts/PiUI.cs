@@ -401,7 +401,7 @@ public class PiUI : MonoBehaviour
 
         if (openedMenu)
         {
-            transform.localScale = Vector2.Lerp(transform.localScale, Vector2.one * scaleModifier, Time.deltaTime * transitionSpeed);
+            transform.localScale = Vector2.Lerp(transform.localScale, Vector2.one * scaleModifier, Time.unscaledDeltaTime * transitionSpeed);
             if (Mathf.Abs((Vector2.one * scaleModifier).sqrMagnitude - transform.localScale.sqrMagnitude) < .05f)
             {
                 interactable = true;
@@ -409,7 +409,7 @@ public class PiUI : MonoBehaviour
         }
         else if (!openedMenu)
         {
-            transform.localScale = Vector2.Lerp(transform.localScale, Vector2.zero, Time.deltaTime * transitionSpeed);
+            transform.localScale = Vector2.Lerp(transform.localScale, Vector2.zero, Time.unscaledDeltaTime * transitionSpeed);
             if (transform.localScale.x < .05f)
             {
                 transform.localScale = Vector2.zero;
@@ -425,7 +425,7 @@ public class PiUI : MonoBehaviour
     {
         if (openedMenu)
         {
-            transform.position = Vector2.Lerp(transform.position, menuPosition, Time.deltaTime * transitionSpeed);
+            transform.position = Vector2.Lerp(transform.position, menuPosition, Time.unscaledDeltaTime * transitionSpeed);
             if (Vector2.SqrMagnitude((Vector2)transform.position - menuPosition) < 4)
             {
                 interactable = true;
@@ -435,7 +435,7 @@ public class PiUI : MonoBehaviour
         {
             Vector2 temp = menuPosition;
             temp.x = Screen.width + outerRadius;
-            transform.position = Vector2.Lerp(transform.position, temp, Time.deltaTime * transitionSpeed);
+            transform.position = Vector2.Lerp(transform.position, temp, Time.unscaledDeltaTime * transitionSpeed);
             if (Vector2.SqrMagnitude(temp - (Vector2)transform.position) < 10)
             {
                 foreach (PiPiece pi in piList)
@@ -451,7 +451,7 @@ public class PiUI : MonoBehaviour
     {
         if (openedMenu)
         {
-            transform.position = Vector2.Lerp(transform.position, menuPosition, Time.deltaTime * transitionSpeed);
+            transform.position = Vector2.Lerp(transform.position, menuPosition, Time.unscaledDeltaTime * transitionSpeed);
             if (Vector2.SqrMagnitude((Vector2)transform.position - menuPosition) < 4)
             {
                 interactable = true;
@@ -461,7 +461,7 @@ public class PiUI : MonoBehaviour
         {
             Vector2 temp = menuPosition;
             temp.x = -outerRadius;
-            transform.position = Vector2.Lerp(transform.position, temp, Time.deltaTime * transitionSpeed);
+            transform.position = Vector2.Lerp(transform.position, temp, Time.unscaledDeltaTime * transitionSpeed);
             if (Vector2.SqrMagnitude(temp - (Vector2)transform.position) < 10)
             {
                 foreach (PiPiece pi in piList)
@@ -477,7 +477,7 @@ public class PiUI : MonoBehaviour
     {
         if (openedMenu)
         {
-            transform.position = Vector2.Lerp(transform.position, menuPosition, Time.deltaTime * transitionSpeed);
+            transform.position = Vector2.Lerp(transform.position, menuPosition, Time.unscaledDeltaTime * transitionSpeed);
             if (Vector2.SqrMagnitude((Vector2)transform.position - menuPosition) < 4)
             {
                 interactable = true;
@@ -487,7 +487,7 @@ public class PiUI : MonoBehaviour
         {
             Vector2 temp = menuPosition;
             temp.y = Screen.height + outerRadius;
-            transform.position = Vector2.Lerp(transform.position, temp, Time.deltaTime * transitionSpeed);
+            transform.position = Vector2.Lerp(transform.position, temp, Time.unscaledDeltaTime * transitionSpeed);
             if (Vector2.SqrMagnitude(temp - (Vector2)transform.position) < 10)
             {
                 foreach (PiPiece pi in piList)
@@ -503,7 +503,7 @@ public class PiUI : MonoBehaviour
     {
         if (openedMenu)
         {
-            transform.position = Vector2.Lerp(transform.position, menuPosition, Time.deltaTime * transitionSpeed);
+            transform.position = Vector2.Lerp(transform.position, menuPosition, Time.unscaledDeltaTime * transitionSpeed);
             if (Vector2.SqrMagnitude((Vector2)transform.position - menuPosition) < 4)
             {
                 interactable = true;
@@ -513,7 +513,7 @@ public class PiUI : MonoBehaviour
         {
             Vector2 temp = menuPosition;
             temp.y = -outerRadius;
-            transform.position = Vector2.Lerp(transform.position, temp, Time.deltaTime * transitionSpeed);
+            transform.position = Vector2.Lerp(transform.position, temp, Time.unscaledDeltaTime * transitionSpeed);
             if (Vector2.SqrMagnitude(temp - (Vector2)transform.position) < 10)
             {
                 foreach (PiPiece pi in piList)
@@ -537,7 +537,7 @@ public class PiUI : MonoBehaviour
         {
             if (openedMenu)
             {
-                piList[i].transform.rotation = Quaternion.Lerp(piList[i].transform.rotation, Quaternion.Euler(0, 0, angleList[i]), Time.deltaTime * transitionSpeed);
+                piList[i].transform.rotation = Quaternion.Lerp(piList[i].transform.rotation, Quaternion.Euler(0, 0, angleList[i]), Time.unscaledDeltaTime * transitionSpeed);
                 if (Mathf.Abs(angleList[i] - ((piList[i].transform.rotation.eulerAngles.z + 360) % 360)) > 3 && closeToAngle)
                 {
                     closeToAngle = false;
@@ -545,7 +545,7 @@ public class PiUI : MonoBehaviour
             }
             else if (!openedMenu)
             {
-                piList[i].transform.rotation = Quaternion.Lerp(piList[i].transform.rotation, Quaternion.Euler(0, 0, rotZ), Time.deltaTime * transitionSpeed);
+                piList[i].transform.rotation = Quaternion.Lerp(piList[i].transform.rotation, Quaternion.Euler(0, 0, rotZ), Time.unscaledDeltaTime * transitionSpeed);
                 float currentAngle = Mathf.Abs(piList[i].transform.rotation.eulerAngles.z + 360f) % 360;
                 float lowComp = (rotZ - 10 + 360f) % 360;
                 float highComp = (rotZ + 10 + 360f) % 360;

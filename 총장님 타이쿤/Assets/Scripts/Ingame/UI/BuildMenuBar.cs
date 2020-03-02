@@ -10,7 +10,7 @@ public class BuildMenuBar : MonoBehaviour
     {
         gameObject.SetActive(true);
 
-        iTween.MoveTo(gameObject, iTween.Hash("x", 0.0f, "islocal", true, "easetype", "easeInQuart", "time", 0.3f));
+        iTween.MoveTo(gameObject, iTween.Hash("x", 0.0f, "islocal", true, "easetype", "easeInQuart", "time", 0.3f, "ignoretimescale", true));
     }
 
     public void CloseBar()
@@ -19,7 +19,7 @@ public class BuildMenuBar : MonoBehaviour
         if (OpenedButton)
             OpenedButton.ClosePanel();
 
-        iTween.MoveTo(gameObject, iTween.Hash("x", -800.0f, "islocal", true, "easetype", "easeInQuart", "time", 0.3f, "oncomplete", "DisableBar"));
+        iTween.MoveTo(gameObject, iTween.Hash("x", -800.0f, "islocal", true, "easetype", "easeInQuart", "time", 0.3f, "oncomplete", "DisableBar", "ignoretimescale", true));
     }
 
     public void DisableBar()

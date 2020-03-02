@@ -270,7 +270,7 @@ public class MouseManager : MonoBehaviour
         //  오브젝트 이동 회전
         PickedObject.transform.position = PointingPosition;
         PickedObject.transform.rotation = Quaternion.Euler(0.0f,
-            PickedObject.transform.rotation.eulerAngles.y + Input.GetAxis("Mouse X") * RotationSpeed * Time.deltaTime, 0.0f);
+            PickedObject.transform.rotation.eulerAngles.y + Input.GetAxis("Mouse X") * RotationSpeed * Time.unscaledDeltaTime, 0.0f);
 
         //  오브젝트 색상 변경
         if (EnableToBuild())

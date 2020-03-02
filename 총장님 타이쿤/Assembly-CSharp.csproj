@@ -73,13 +73,14 @@
     <Compile Include="Assets\Scripts\Ingame\CharacterFSM.cs" />
     <Compile Include="Assets\Scripts\Ingame\GameManager.cs" />
     <Compile Include="Assets\Scripts\Ingame\GUICamera.cs" />
+    <Compile Include="Assets\Scripts\Ingame\IngameTutorial.cs" />
     <Compile Include="Assets\Scripts\Ingame\MainCamera.cs" />
     <Compile Include="Assets\Scripts\Ingame\MouseManager.cs" />
     <Compile Include="Assets\Scripts\Ingame\UI\BuildingCategoryButton.cs" />
     <Compile Include="Assets\Scripts\Ingame\UI\BuildingIcon.cs" />
     <Compile Include="Assets\Scripts\Ingame\UI\BuildMenuBar.cs" />
     <Compile Include="Assets\Scripts\Ingame\UI\BuildMenuButton.cs" />
-    <Compile Include="Assets\Scripts\Ingame\UI\IngameTutorial.cs" />
+    <Compile Include="Assets\Scripts\Ingame\UI\WorldTimer.cs" />
     <Compile Include="Assets\Scripts\Main\AssistantTutorial.cs" />
     <Compile Include="Assets\Scripts\Main\MainManager.cs" />
     <Compile Include="Assets\Scripts\SoundManager.cs" />

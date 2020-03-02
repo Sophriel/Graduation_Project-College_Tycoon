@@ -77,11 +77,11 @@ public class PiPiece : MonoBehaviour
         {
             if (isOver && transform.localScale.sqrMagnitude < (Vector2.one * parent.hoverScale).sqrMagnitude)
             {
-                transform.localScale = Vector2.Lerp(transform.localScale, Vector2.one * parent.hoverScale, Time.deltaTime * 10f);
+                transform.localScale = Vector2.Lerp(transform.localScale, Vector2.one * parent.hoverScale, Time.unscaledDeltaTime * 10f);
             }
             else if (transform.localScale.sqrMagnitude > 1 && !isOver)
             {
-                transform.localScale = Vector2.Lerp(transform.localScale, Vector2.one, Time.deltaTime * 10f);
+                transform.localScale = Vector2.Lerp(transform.localScale, Vector2.one, Time.unscaledDeltaTime * 10f);
             }
 
             Vector2 mousePos = Input.mousePosition;
@@ -110,28 +110,28 @@ public class PiPiece : MonoBehaviour
                 else
                 {
                     isOver = false;
-                    thisImg.color= Color.Lerp(thisImg.color, normalColor, Time.deltaTime * 10f);
+                    thisImg.color= Color.Lerp(thisImg.color, normalColor, Time.unscaledDeltaTime * 10f);
                 }
 
             }
             else
             {
                 isOver = false;
-                thisImg.color= Color.Lerp(thisImg.color, normalColor, Time.deltaTime * 10f);
+                thisImg.color= Color.Lerp(thisImg.color, normalColor, Time.unscaledDeltaTime * 10f);
             }
             if (!parent.interactable)
             {
                 isOver = false;
                 if (parent.fade)
                 {
-                    thisImg.color= Color.Lerp(thisImg.color, Color.clear, Time.deltaTime * 10f);
+                    thisImg.color= Color.Lerp(thisImg.color, Color.clear, Time.unscaledDeltaTime * 10f);
                 }
             }
             if (isOver && parent.interactable)
             {
                 scaledOR *= parent.hoverScale;
                 transform.SetAsLastSibling( );
-                thisImg.color= Color.Lerp(thisImg.color, highlightColor, Time.deltaTime * 10f);
+                thisImg.color= Color.Lerp(thisImg.color, highlightColor, Time.unscaledDeltaTime * 10f);
 
                 if (Input.GetButtonUp("RightClick") || parent.useController && parent.joystickButton)
                 {
@@ -142,7 +142,7 @@ public class PiPiece : MonoBehaviour
         else
         {
             thisImg.color = disabledColor;
-            transform.localScale = Vector2.Lerp(transform.localScale, Vector2.one, Time.deltaTime * 10f);
+            transform.localScale = Vector2.Lerp(transform.localScale, Vector2.one, Time.unscaledDeltaTime * 10f);
         }
         if (transform.rotation.eulerAngles.z == 359f || transform.rotation.eulerAngles.z == 0)
         {
