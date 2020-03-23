@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+public interface SwitchableUI
+{
+	void OnClick();
+}
+
 public class GameManager : MonoBehaviour
 {
     #region Singleton
@@ -50,6 +55,8 @@ public class GameManager : MonoBehaviour
     public GameObject Fade;
     private Image fadeImage;
 
+	private SwitchableUI uiOnScreen;
+
     private List<GameObject> buildingsInGame;
 
     void Start()
@@ -66,19 +73,23 @@ public class GameManager : MonoBehaviour
         buildingsInGame.AddRange(GameObject.FindGameObjectsWithTag("Building"));
     }
 
-    private void FadeUpdate(int alpha)
-    {
-        fadeImage.color = new Color(1f, 1f, 1f, alpha / 255f);
-    }
+	#region 페이딩
+
+	private void FadeUpdate(int alpha)
+	{
+		fadeImage.color = new Color(1f, 1f, 1f, alpha / 255f);
+	}
 
 	private void FadeComplete()
 	{
 		Fade.SetActive(false);
 	}
 
-    #region 게임 내 건물 관리
+	#endregion
 
-    public GameObject GetRandomBuildingInGame()
+	#region 게임 내 건물 관리
+
+	public GameObject GetRandomBuildingInGame()
     {
         if (buildingsInGame.Count > 0)
             return buildingsInGame[Random.Range(0, buildingsInGame.Count - 1)];
@@ -98,5 +109,23 @@ public class GameManager : MonoBehaviour
             buildingsInGame.Remove(building);
     }
 
-    #endregion
+	#endregion
+
+	#region UI 관리
+
+	public void RegisterUI(SwitchableUI ui)
+	{
+		if (uiOnScreen != null)
+			uiOnScreen.OnClick();
+
+		uiOnScreen = ui;
+	}
+
+	public void CancleUI(SwitchableUI ui)
+	{
+		if (uiOnScreen == ui)
+			uiOnScreen = null;
+	}
+
+	#endregion
 }

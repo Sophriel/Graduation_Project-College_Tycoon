@@ -55,9 +55,9 @@ public class CharacterFSM : MonoBehaviour
         Nodes = new Dictionary<Vector3, PathNode>();  //  경로 탐색용 노드 Dictionary
         Keys = new List<Vector3>(Nodes.Keys);  //  노드 key값 저장 List
         Paths = new Stack<Vector3>();  //  확정된 경로 Stack
-    }
+	}
 
-    private void Update()
+	private void Update()
     {
         switch (State)
         {
@@ -71,9 +71,9 @@ public class CharacterFSM : MonoBehaviour
                 if (!Destination)
                     SetTarget(GameManager.Instance.GetRandomBuildingInGame());
 
-                anim.SetBool("walk", false);
-                anim.Play("Idle");
-                break;
+				anim.SetBool("walk", false);
+				anim.Play("Idle");
+				break;
             case CharacterState.Walk:
                 //if (CastToDirection(Vector3.forward))
                 //    State = CharacterState.Idle;

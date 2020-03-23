@@ -29,7 +29,7 @@ public class MainCamera : MonoBehaviour
     private void Start()
     {
 		inputLock = true;
-		iTween.MoveTo(gameObject, iTween.Hash("y", 50.0f, "z", -86.60254f, "time", 3.5f, "oncomplete", "unlockInput"));
+		iTween.MoveTo(gameObject, iTween.Hash("y", 50.0f, "z", -86.60254f, "time", 3.5f, "easetype", iTween.EaseType.easeOutQuart, "oncomplete", "unlockInput"));
 	}
 
 	private void unlockInput()
@@ -41,11 +41,11 @@ public class MainCamera : MonoBehaviour
     {
 		if (!inputLock)
 		{
-			if (Time.timeScale == 0.0f)
-				inputForceUpdate();
+			if (Time.timeScale != 1.0f)
+				InputForceUpdate();
 
 			else
-				inputUpdate();
+				InputUpdate();
 		}
 
 		//  타겟 시선고정
@@ -55,32 +55,32 @@ public class MainCamera : MonoBehaviour
             SceneManager.LoadScene("Ingame");
     }
 
-	private void inputUpdate()
+	private void InputUpdate()
 	{
 		//  카메라 이동
 		movement.Set(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical"));
-		Target.position += Quaternion.Euler(0.0f, transform.rotation.eulerAngles.y, 0.0f) * movement * (distance * 0.25f) * MoveSpeed * Time.unscaledDeltaTime;
+		Target.position += Quaternion.Euler(0.0f, transform.rotation.eulerAngles.y, 0.0f) * movement * (distance * 0.25f) * MoveSpeed * Time.deltaTime;
 
 		//  카메라 회전
 		if (!MouseManager.Instance.BuildMode)
 		{
-			xAngle -= Input.GetAxis("Mouse Y") * Sensitivity * Time.unscaledDeltaTime;
+			xAngle -= Input.GetAxis("Mouse Y") * Sensitivity * Time.deltaTime;
 			xAngle = Mathf.Clamp(xAngle, 5.0f, 85.0f);
-			yAngle += Input.GetAxis("Mouse X") * Sensitivity * Time.unscaledDeltaTime;
+			yAngle += Input.GetAxis("Mouse X") * Sensitivity * Time.deltaTime;
 		}
 
 		//  줌인 줌아웃
-		distance -= Input.GetAxis("Mouse ScrollWheel") * ZoomSpeed * Time.unscaledDeltaTime;
+		distance -= Input.GetAxis("Mouse ScrollWheel") * ZoomSpeed * Time.deltaTime;
 
 		//  최소, 최대 줌 고정
 		distance = Mathf.Clamp(distance, minDistance, maxDistance);
 
 		//  카메라 위치설정
 		camDir = Quaternion.Euler(xAngle, yAngle, 0.0f) * Vector3.forward;
-		transform.position = Target.position + (camDir * -distance);
+		iTween.MoveUpdate(gameObject, iTween.Hash("position", Target.position + (camDir * -distance), "time", 0.5f));
 	}
 
-	private void inputForceUpdate()
+	private void InputForceUpdate()
 	{
 		//  카메라 이동
 		movement.Set(Input.GetAxisRaw("Horizontal"), 0.0f, Input.GetAxisRaw("Vertical"));
