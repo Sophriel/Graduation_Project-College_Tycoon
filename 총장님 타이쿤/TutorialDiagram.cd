@@ -1,0 +1,224 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="MouseManager" Collapsed="true">
+    <Position X="9" Y="2" Width="1.5" />
+    <Members>
+      <Field Name="_lock" Hidden="true" />
+      <Method Name="Awake" Hidden="true" />
+      <Field Name="guiCamera" Hidden="true" />
+      <Field Name="instance" Hidden="true" />
+      <Field Name="isMainRayHit" Hidden="true" />
+      <Field Name="mainCamera" Hidden="true" />
+      <Field Name="maxDistance" Hidden="true" />
+      <Field Name="PickedObject" Hidden="true" />
+      <Field Name="piUi" Hidden="true" />
+      <Field Name="PointingObject" Hidden="true" />
+      <Field Name="PointingPosition" Hidden="true" />
+      <Field Name="RotationSpeed" Hidden="true" />
+      <Method Name="Start" Hidden="true" />
+      <Method Name="Update" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Delegate Name="MouseManager.TutorialEvent" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Scripts\Ingame\MouseManager.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Delegate Name="MouseManager.BuildEvent" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Scripts\Ingame\MouseManager.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>EAQQAQAIACAAKghgAIAAAQQAAgNBEMEAQggAAQKAUFA=</HashCode>
+      <FileName>Assets\Scripts\Ingame\MouseManager.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="mainCamera" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="IngameTutorial" Collapsed="true">
+    <Position X="5" Y="0.75" Width="1.75" />
+    <Members>
+      <Field Name="anim" Hidden="true" />
+      <Field Name="itPath" Hidden="true" />
+      <Method Name="OpenPanelCheck" Hidden="true" />
+      <Method Name="RightClickCheck" Hidden="true" />
+      <Method Name="RotationCheck" Hidden="true" />
+      <Method Name="Start" Hidden="true" />
+      <Field Name="Text" Hidden="true" />
+      <Method Name="Update" Hidden="true" />
+      <Method Name="WASDCheck" Hidden="true" />
+      <Method Name="ZoomCheck" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Delegate Name="IngameTutorial.TutorialCheckPoint">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Scripts\Ingame\IngameTutorial.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>CASEAAAAAyIAAGAAAgCIAAAAYAhAQAAAAQAACAAAAII=</HashCode>
+      <FileName>Assets\Scripts\Ingame\IngameTutorial.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MainCamera" Collapsed="true">
+    <Position X="6.5" Y="2" Width="1.5" />
+    <Members>
+      <Field Name="camDir" Hidden="true" />
+      <Field Name="camSpeed" Hidden="true" />
+      <Field Name="distance" Hidden="true" />
+      <Field Name="maxDistance" Hidden="true" />
+      <Field Name="minDistance" Hidden="true" />
+      <Field Name="movement" Hidden="true" />
+      <Field Name="MoveSpeed" Hidden="true" />
+      <Field Name="Sensitivity" Hidden="true" />
+      <Method Name="Start" Hidden="true" />
+      <Field Name="Target" Hidden="true" />
+      <Method Name="Update" Hidden="true" />
+      <Field Name="xAngle" Hidden="true" />
+      <Field Name="yAngle" Hidden="true" />
+      <Field Name="ZoomSpeed" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAQAAQAAACAFJBAAAAACYCgAAGAIAABAAAAAAAEAAAA=</HashCode>
+      <FileName>Assets\Scripts\Ingame\MainCamera.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BuildMenuBar" Collapsed="true">
+    <Position X="6.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAAAIAAAAAAAAAAAgAAAAAAAAAABA=</HashCode>
+      <FileName>Assets\Scripts\Ingame\UI\Build Menu\BuildMenuBar.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MainMenu" Collapsed="true">
+    <Position X="10.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAgAACAAAAAAABAgAAECAACACAAIAAAAAAAAAAQ=</HashCode>
+      <FileName>Assets\Scripts\Ingame\UI\Main Menu\MainMenu.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Department" Collapsed="true">
+    <Position X="9" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgBAAAAAAAAAAAAAgAACCQAAAAYAAwACAAACAAAA=</HashCode>
+      <FileName>Assets\Scripts\Ingame\UI\Main Menu\School\Department.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DeptManager" Collapsed="true">
+    <Position X="9" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAGAAAAAgQAqwEAAAABDgCIAASSIAAgQBANA=</HashCode>
+      <FileName>Assets\Scripts\Ingame\UI\Main Menu\School\DeptManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="College" Collapsed="true">
+    <Position X="10" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAQAAAAAAAAAAACQAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Ingame\UI\Main Menu\School\College.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Major" Collapsed="true">
+    <Position X="8" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAACQAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Ingame\UI\Main Menu\School\Major.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameManager" Collapsed="true">
+    <Position X="7.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAgCAAAAAwAACABAAIACJAAIAgQAAAAIAAAEA=</HashCode>
+      <FileName>Assets\Scripts\Ingame\GameManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CharacterFSM" Collapsed="true">
+    <Position X="2.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgQgEQAAYCAAAAFAiAAgAAAAAAAABQAEAQAABAAAAAI=</HashCode>
+      <FileName>Assets\Scripts\Ingame\CharacterFSM.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PathNode" Collapsed="true">
+    <Position X="2.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAACAAAABAAACAAIAAAAAAAIAAAAAABEAACAA=</HashCode>
+      <FileName>Assets\Scripts\Ingame\CharacterFSM.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BuildingIcon" Collapsed="true">
+    <Position X="6.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAABAACAQAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Ingame\UI\Build Menu\BuildingIcon.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WorldTimer" Collapsed="true">
+    <Position X="10.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAIAkACiAAAAAAEAAAAACABgAAAAAQAAAAgAAAABA=</HashCode>
+      <FileName>Assets\Scripts\Ingame\UI\WorldTimer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Building" Collapsed="true">
+    <Position X="4.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAARAACAAAAAAAAAAAAIAAAAAAAAIAAEA=</HashCode>
+      <FileName>Assets\Scripts\Ingame\Building.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PiUI" Collapsed="true">
+    <Position X="6.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gF6gAwAwkAVBAQhkBAIhEEABTAQAAJEAAASAAGABIFA=</HashCode>
+      <FileName>Assets\etc\PiUi\Scripts\PiUI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CalendarController" Collapsed="true">
+    <Position X="11.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AMRAAEAQACAAAAAAAAMAACAAQBAAAAAIAEAAAAhAEAA=</HashCode>
+      <FileName>Assets\etc\Calendar\CalendarController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CalendarDateItem" Collapsed="true">
+    <Position X="11.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACCAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAA=</HashCode>
+      <FileName>Assets\etc\Calendar\CalendarDateItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="SwitchableUI" Collapsed="true">
+    <Position X="12.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Ingame\GameManager.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="CharacterState" Collapsed="true">
+    <Position X="1.5" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Assets\Scripts\Ingame\CharacterFSM.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="PathFindMethod" Collapsed="true">
+    <Position X="3.5" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>Assets\Scripts\Ingame\CharacterFSM.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="맑은 고딕" Size="9" />
+</ClassDiagram>

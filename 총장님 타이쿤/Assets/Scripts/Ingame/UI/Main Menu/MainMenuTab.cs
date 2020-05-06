@@ -5,14 +5,14 @@ using UnityEngine;
 public class MainMenuTab : MonoBehaviour
 {
 	private MainMenu mainMenu;
- 	private GameObject buttonGroup;
 	[SerializeField]
-	private MainMenuButton OutlineButton;
+	private GameObject buttonGroup;
+	[SerializeField]
+	private MainMenuButton outlineButton;
 
 	private void Start()
 	{
 		mainMenu = GetComponentInParent<MainMenu>();
-		buttonGroup = transform.Find("_Buttons").gameObject;
 
 		buttonGroup.SetActive(false);
 	}
@@ -27,7 +27,7 @@ public class MainMenuTab : MonoBehaviour
 
 		//  작용
 		mainMenu.SwitchTab(this);
-		mainMenu.SwitchButton(OutlineButton);
+		mainMenu.SwitchButton(outlineButton);
 	}
 
 	public void EnableButtons()

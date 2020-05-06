@@ -12,7 +12,6 @@ public class MainMenuButton : MonoBehaviour
 	private void Start()
 	{
 		mainMenu = GetComponentInParent<MainMenu>();
-		panel = transform.GetChild(0).gameObject;
 	}
 
 	public void OnClick()

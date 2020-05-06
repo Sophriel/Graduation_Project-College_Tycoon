@@ -51,8 +51,18 @@ public class CharacterCustomization : MonoBehaviour
         { ClothesPartType.Shoes, -1 },
     };
 
-    #region Character elements iterator
-    public void NextHead()
+	private void Start()
+	{
+		SetHeadByIndex(Random.Range(0, headsPresets.Count));
+		SetElementByIndex(CharacterCustomization.ClothesPartType.Hat, Random.Range(-1, hatsPresets.Count));
+		SetElementByIndex(CharacterCustomization.ClothesPartType.Accessory, Random.Range(-1, accessoryPresets.Count));
+		SetElementByIndex(CharacterCustomization.ClothesPartType.TShirt, Random.Range(0, shirtsPresets.Count));
+		SetElementByIndex(CharacterCustomization.ClothesPartType.Pants, Random.Range(0, pantsPresets.Count));
+		SetElementByIndex(CharacterCustomization.ClothesPartType.Shoes, Random.Range(0, shoesPresets.Count));
+	}
+
+	#region Character elements iterator
+	public void NextHead()
     {
         int next = headActiveIndex + 1;
 

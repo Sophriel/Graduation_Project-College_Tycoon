@@ -34,23 +34,13 @@ public class CharacterFSM : MonoBehaviour
     public Stack<Vector3> Paths;
     public GameObject Destination;
     public int DirectionCount = 6;  //  각 노드당 탐색 방향
-    public float DistanceBetweenNodes = 7.0f;  //  각 노드당 탐색거리
+    public float DistanceBetweenNodes = 10.0f;  //  각 노드당 탐색거리
 
     private readonly float speed = 4.0f;  //  진행 속도
 
     private void Start()
     {
-        State = CharacterState.Idle;
-
         anim = GetComponent<Animator>();
-
-        cc = GetComponent<CharacterCustomization>();
-        cc.SetHeadByIndex(Random.Range(0, cc.headsPresets.Count));
-        cc.SetElementByIndex(CharacterCustomization.ClothesPartType.Hat, Random.Range(-1, cc.hatsPresets.Count));
-        cc.SetElementByIndex(CharacterCustomization.ClothesPartType.Accessory, Random.Range(-1, cc.accessoryPresets.Count));
-        cc.SetElementByIndex(CharacterCustomization.ClothesPartType.TShirt, Random.Range(0, cc.shirtsPresets.Count));
-        cc.SetElementByIndex(CharacterCustomization.ClothesPartType.Pants, Random.Range(0, cc.pantsPresets.Count));
-        cc.SetElementByIndex(CharacterCustomization.ClothesPartType.Shoes, Random.Range(0, cc.shoesPresets.Count));
 
         Nodes = new Dictionary<Vector3, PathNode>();  //  경로 탐색용 노드 Dictionary
         Keys = new List<Vector3>(Nodes.Keys);  //  노드 key값 저장 List
@@ -69,7 +59,7 @@ public class CharacterFSM : MonoBehaviour
 
                 //  경로 미설정시 재탐색
                 if (!Destination)
-                    SetTarget(GameManager.Instance.GetRandomBuildingInGame());
+                    SetTarget();
 
 				anim.SetBool("walk", false);
 				anim.Play("Idle");
@@ -86,33 +76,21 @@ public class CharacterFSM : MonoBehaviour
         }
     }
 
-    //private bool CastToDirection(Vector3 dir)
-    //{
-    //    int layermask = 1 << LayerMask.NameToLayer("Building");
-
-    //    bool hit = Physics.SphereCast(transform.position, 0.5f, Vector3.forward, out RaycastHit hitInfo, 5.0f, layermask);
-
-    //    if (hit)
-    //    {
-    //        Debug.DrawRay(transform.position + Vector3.up, dir * 5.0f, Color.red, 3.0f);
-    //        return true;
-    //    }
-
-    //    return false;
-    //}
-
     #region 경로 탐색 알고리즘
 
     /// <summary>
     /// 목적지를 설정합니다.
     /// </summary>
     /// <param name="dest">목적지로 설정할 GameObject</param>
-    private void SetTarget(GameObject dest)
+    private void SetTarget()
     {
-        if (!dest)
-            return;
+		Destination = GameManager.Instance.GetRandomBuildingInGame();
 
-        Destination = dest;
+		if (!Destination)
+		{
+			MouseManager.Instance.AddBuildEvent(SetTarget);
+			return;
+		}
 
         TrackTarget();
     }
@@ -179,15 +157,16 @@ public class CharacterFSM : MonoBehaviour
         int i = 0;
         while (Nodes.Count > 0)
         {
-            if (Nodes.Count > 100000)
+            if (Nodes.Count > 30000)
             {
                 Debug.Log(Nodes.Count + " " + name + " Failed to Find");
                 return false;
             }
 
-            if (Nodes[Keys[i]].FindPath())
+            if (Nodes[Keys[0]].FindPath())
                 break;
 
+			Keys.RemoveAt(0);
             i++;
         }
 
@@ -206,13 +185,13 @@ public class CharacterFSM : MonoBehaviour
     /// </summary>
     private bool FindPathWithAstar()
     {
-        return false;
-    }
+		return true;
+	}
 
-    /// <summary>
-    /// 설정된 Paths를 따라갑니다.
-    /// </summary>
-    private IEnumerator FollowPath()
+	/// <summary>
+	/// 설정된 Paths를 따라갑니다.
+	/// </summary>
+	private IEnumerator FollowPath()
     {
         MouseManager.Instance.AddBuildEvent(TrackTarget);  //  경로에 도달할 때 까지 Observe
         State = CharacterState.Walk;
@@ -300,15 +279,17 @@ public class PathNode
                 return false;
 
             //  충돌체 없을시 해당 위치에 노드 생성
-            if (!hit)
+            if (!hit && !Character.Nodes.ContainsKey(ray.GetPoint(dist) + Vector3.down))
             {
                 PathNode node = new PathNode(Character, this, ray.GetPoint(dist) + Vector3.down);
 
-                if (!Character.Nodes.ContainsKey(node.pos))
-                {
-                    Character.Nodes.Add(node.pos, node);
+				Character.Nodes.Add(node.pos, node);
+
+				if (Vector3.Distance(destination.transform.position, node.pos) < Vector3.Distance(destination.transform.position, Character.Keys[0]))
+					Character.Keys.Insert(0, node.pos);
+
+                else
                     Character.Keys.Add(node.pos);
-                }
             }
         }
 

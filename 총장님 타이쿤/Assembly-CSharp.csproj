@@ -60,6 +60,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\etc\Calendar\CalendarController.cs" />
+    <Compile Include="Assets\etc\Calendar\CalendarDateItem.cs" />
     <Compile Include="Assets\etc\CivilCharactersPack\Scripts\CharacterCustomization.cs" />
     <Compile Include="Assets\etc\Low Poly Modular Terrain Pack\Bonus_Assets\Scripts\ModularTerrainCameraControl.cs" />
     <Compile Include="Assets\etc\Low Poly Modular Terrain Pack\Bonus_Assets\Scripts\ModularTerrainCloudsControl.cs" />
@@ -70,7 +72,10 @@
     <Compile Include="Assets\etc\Pixelplacement\iTween.cs" />
     <Compile Include="Assets\etc\Pixelplacement\iTweenPath\iTweenPath.cs" />
     <Compile Include="Assets\Scripts\Ingame\Building.cs" />
-    <Compile Include="Assets\Scripts\Ingame\CharacterFSM.cs" />
+    <Compile Include="Assets\Scripts\Ingame\Character\CharacterFSM.cs" />
+    <Compile Include="Assets\Scripts\Ingame\Character\PeopleManager.cs" />
+    <Compile Include="Assets\Scripts\Ingame\Character\Person.cs" />
+    <Compile Include="Assets\Scripts\Ingame\Character\Professor.cs" />
     <Compile Include="Assets\Scripts\Ingame\GameManager.cs" />
     <Compile Include="Assets\Scripts\Ingame\GUICamera.cs" />
     <Compile Include="Assets\Scripts\Ingame\IngameTutorial.cs" />
@@ -83,6 +88,12 @@
     <Compile Include="Assets\Scripts\Ingame\UI\Main Menu\MainMenu.cs" />
     <Compile Include="Assets\Scripts\Ingame\UI\Main Menu\MainMenuButton.cs" />
     <Compile Include="Assets\Scripts\Ingame\UI\Main Menu\MainMenuTab.cs" />
+    <Compile Include="Assets\Scripts\Ingame\UI\Main Menu\People\RecruitProfessor.cs" />
+    <Compile Include="Assets\Scripts\Ingame\UI\Main Menu\School\AddButton.cs" />
+    <Compile Include="Assets\Scripts\Ingame\UI\Main Menu\School\College.cs" />
+    <Compile Include="Assets\Scripts\Ingame\UI\Main Menu\School\Department.cs" />
+    <Compile Include="Assets\Scripts\Ingame\UI\Main Menu\School\DeptManager.cs" />
+    <Compile Include="Assets\Scripts\Ingame\UI\Main Menu\School\Major.cs" />
     <Compile Include="Assets\Scripts\Ingame\UI\WorldTimer.cs" />
     <Compile Include="Assets\Scripts\Main\AssistantTutorial.cs" />
     <Compile Include="Assets\Scripts\Main\MainManager.cs" />
