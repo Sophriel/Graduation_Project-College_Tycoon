@@ -12,7 +12,7 @@ public class Department : MonoBehaviour
 	public bool IsEstablished { get; protected set; }
 
 	protected string info;
-	protected Building assginedBuilding;
+	public GameObject AssignedBuilding;
 
 	protected int people;
 	protected int budget;
@@ -21,5 +21,6 @@ public class Department : MonoBehaviour
 	public virtual void OnClick() { }
 	public virtual void SetActiveThis() { }
 	public virtual bool Establish() { return true; }
+	public virtual void AssignBuilding() { }
 	public virtual void Close() { }
 }

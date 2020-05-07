@@ -62,7 +62,7 @@ public class MainCamera : MonoBehaviour
 		Target.position += Quaternion.Euler(0.0f, transform.rotation.eulerAngles.y, 0.0f) * movement * (distance * 0.25f) * MoveSpeed * Time.deltaTime;
 
 		//  카메라 회전
-		if (!MouseManager.Instance.BuildMode)
+		if (MouseManager.Instance.MM == MouseMode.Idle)
 		{
 			xAngle -= Input.GetAxis("Mouse Y") * Sensitivity * Time.deltaTime;
 			xAngle = Mathf.Clamp(xAngle, 5.0f, 85.0f);
@@ -87,7 +87,7 @@ public class MainCamera : MonoBehaviour
 		Target.position += Quaternion.Euler(0.0f, transform.rotation.eulerAngles.y, 0.0f) * movement * (distance * 0.25f) * MoveSpeed * Time.unscaledDeltaTime;
 
 		//  카메라 회전
-		if (!MouseManager.Instance.BuildMode)
+		if (MouseManager.Instance.MM == MouseMode.Idle)
 		{
 			xAngle -= Input.GetAxisRaw("Mouse Y") * Sensitivity * Time.unscaledDeltaTime;
 			xAngle = Mathf.Clamp(xAngle, 5.0f, 85.0f);

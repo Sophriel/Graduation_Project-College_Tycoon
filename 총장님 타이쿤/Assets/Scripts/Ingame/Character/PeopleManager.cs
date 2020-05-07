@@ -45,25 +45,25 @@ public class PeopleManager : MonoBehaviour
 
 	#endregion
 
-	public List<Person> PeopleInGame = new List<Person>();
+	public GameObject PeopleInGame;
 
 	#region 캐릭터
 
 	public GameObject MalePrefab;
 	public GameObject FemalePrefab;
 
-	public GameObject GenerateCharacter(Person person)
+	public GameObject GenerateCharacter()
 	{
 		GameObject character = null;
 
 		switch (Random.Range(0, 1))
 		{
 			case 0:
-				character = Instantiate(MalePrefab, person.transform);
+				character = Instantiate(MalePrefab);
 				break;
 
 			case 1:
-				character = Instantiate(FemalePrefab, person.transform);
+				character = Instantiate(FemalePrefab);
 				break;
 
 			default:
@@ -73,15 +73,37 @@ public class PeopleManager : MonoBehaviour
 		return character;
 	}
 
-	public void SetCharacterForUI(GameObject gameObject)
+	public GameObject CopyCharacter(GameObject original)
 	{
-		gameObject.transform.localScale *= 100.0f;
-		gameObject.transform.localRotation = Quaternion.Euler(Vector3.up * 200.0f);
-		gameObject.layer = LayerMask.NameToLayer("UI");
+		GameObject character = Instantiate(original);
+		Destroy(character.GetComponent<CharacterCustomization>());
+
+		character.transform.localScale = Vector3.one;
+		character.transform.position = new Vector3(-42.0f, -0.05f, -39.0f);
+
+		character.layer = LayerMask.NameToLayer("Person");
+
+		foreach (Transform item in character.GetComponentsInChildren<Transform>())
+			item.gameObject.layer = LayerMask.NameToLayer("Person");
+
+		return character;
+	}
+
+	public GameObject GenerateCharacterForUI(Person person)
+	{
+		GameObject character = GenerateCharacter();
+		Destroy(character.GetComponent<CharacterFSM>());
+
+		character.transform.SetParent(person.transform);
+
+		character.transform.localScale *= 0.8f;
+		character.transform.localRotation = Quaternion.Euler(Vector3.up * 200.0f);
+		character.layer = LayerMask.NameToLayer("UI");
 
 		foreach (Transform item in gameObject.GetComponentsInChildren<Transform>())
 			item.gameObject.layer = LayerMask.NameToLayer("UI");
 
+		return character;
 	}
 
 	#endregion

@@ -5,46 +5,59 @@ using UnityEngine;
 //  모든 설치, 재건축 가능한 오브젝트에 포함하는 스크립트
 public class Building : MonoBehaviour
 {
-    public Collider BuildingCollider;
-    public bool IsColliding;  //  다른 Building, TerrainObject 와 충돌?
+	#region 기본 세팅
 
-    public bool IsInstance = false;  //  새로 산 빌딩?
+	public Collider BuildingCollider;
+	public bool IsColliding;  //  다른 Building, TerrainObject 와 충돌?
 
-    //  빌딩 기본 세팅
-    private void Awake()
-    {
-        gameObject.layer = LayerMask.NameToLayer("Building");
+	public bool IsInstance = false;  //  새로 산 빌딩?
 
-        if (gameObject.GetComponent<Rigidbody>() == null)
-        {
-            gameObject.AddComponent<Rigidbody>().useGravity = false;
-            gameObject.GetComponent<Rigidbody>().isKinematic = true;
+	//  빌딩 기본 세팅
+	private void Awake()
+	{
+		gameObject.layer = LayerMask.NameToLayer("Building");
 
-        }
+		if (gameObject.GetComponent<Rigidbody>() == null)
+		{
+			gameObject.AddComponent<Rigidbody>().useGravity = false;
+			gameObject.GetComponent<Rigidbody>().isKinematic = true;
 
-        if (gameObject.GetComponent<BoxCollider>() == null)
-        {
-            gameObject.AddComponent<BoxCollider>();
-            BuildingCollider = GetComponent<Collider>();
-        }
-    }
+		}
 
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Building")
-            || other.gameObject.layer == LayerMask.NameToLayer("TerrainObject"))
-        {
-            IsColliding = true;
-        }
-    }
+		if (gameObject.GetComponent<BoxCollider>() == null)
+		{
+			gameObject.AddComponent<BoxCollider>();
+			BuildingCollider = GetComponent<Collider>();
+		}
+	}
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Building")
-            || other.gameObject.layer == LayerMask.NameToLayer("TerrainObject"))
-        {
-            IsColliding = false;
-        }
-    }
+	#endregion
 
+	#region 빌드모드
+
+	private void OnTriggerStay(Collider other)
+	{
+		if (other.gameObject.layer == LayerMask.NameToLayer("Building")
+			|| other.gameObject.layer == LayerMask.NameToLayer("TerrainObject"))
+		{
+			IsColliding = true;
+		}
+	}
+
+	private void OnTriggerExit(Collider other)
+	{
+		if (other.gameObject.layer == LayerMask.NameToLayer("Building")
+			|| other.gameObject.layer == LayerMask.NameToLayer("TerrainObject"))
+		{
+			IsColliding = false;
+		}
+	}
+
+	#endregion
+
+	#region 멤버
+
+	public Department Owner;
+
+	#endregion
 }

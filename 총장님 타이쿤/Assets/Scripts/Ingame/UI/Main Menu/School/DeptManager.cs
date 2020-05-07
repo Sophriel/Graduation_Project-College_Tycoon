@@ -102,21 +102,20 @@ public class DeptManager : MonoBehaviour
 	public Transform CollegeGrid { get; private set; }
 	public Transform DeptGrid { get; private set; }
 
-	[SerializeField]
-	private GameObject estMenu;
-	[SerializeField]
-	private GameObject unEstMenu;
+	public GameObject EstMenu;
+	public GameObject UnEstMenu;
+	public GameObject AssignButton;
+	public GameObject ShowBuildingButton;
 
 	public College CurrentCollege { get; private set; }
 	public Department CurrentDept;
 
 	#endregion
 
-
-	private void Start()
+	private void OnEnable()
 	{
-		estMenu.SetActive(false);
-		unEstMenu.SetActive(false);
+		EstMenu.SetActive(false);
+		UnEstMenu.SetActive(false);
 	}
 
 	#region 매니지먼트 멤버
@@ -141,8 +140,8 @@ public class DeptManager : MonoBehaviour
 		onPlusButtonEvent?.Invoke();
 		onCollegeButtonEvent?.Invoke();
 
-		estMenu.SetActive(false);
-		unEstMenu.SetActive(false);
+		EstMenu.SetActive(false);
+		UnEstMenu.SetActive(false);
 	}
 
 	//  학부 선택할때 오른쪽 전공 패널 수정
@@ -153,17 +152,35 @@ public class DeptManager : MonoBehaviour
 
 		CurrentCollege.SetActiveThis();
 
-		estMenu.SetActive(false);
-		unEstMenu.SetActive(false);
+		EstMenu.SetActive(false);
+		UnEstMenu.SetActive(false);
 	}
 
 	public void ShowMenu(bool IsDeptEstablished)
 	{
 		if (IsDeptEstablished)
-			estMenu.SetActive(true);
+		{
+			UnEstMenu.SetActive(false);
+			EstMenu.SetActive(true);
+
+			if (!CurrentDept.AssignedBuilding)
+			{
+				ShowBuildingButton.SetActive(false);
+				AssignButton.SetActive(true);
+			}
+
+			else
+			{
+				AssignButton.SetActive(false);
+				ShowBuildingButton.SetActive(true);
+			}
+		}
 
 		else
-			unEstMenu.SetActive(true);
+		{
+			EstMenu.SetActive(false);
+			UnEstMenu.SetActive(true);
+		}
 	}
 
 	#endregion
@@ -172,18 +189,57 @@ public class DeptManager : MonoBehaviour
 
 	public void CurrentDept_ShowInfo()
 	{
-		
+
 	}
 
 	public void CurrentDept_Establish()
 	{
 		if (CurrentDept.Establish())
+		{
 			onNewDeptEvent?.Invoke();
+			ShowMenu(CurrentDept.IsEstablished);
+		}
+	}
+
+	public void CurrentDept_AssignBuilding()
+	{
+		//  메뉴를 꺼
+		GameManager.Instance.CloseUI();
+
+		//  마우스매니저한테 어사인 연락 받아야해
+		MouseManager.Instance.AddAssignEvent(AssignConfirm);
+
+		//  마우스는 어사인모드
+		MouseManager.Instance.StartAssigning();
+	}
+
+	public void AssignConfirm(GameObject building)
+	{
+		if (!building)
+		{
+			MouseManager.Instance.DeleteAssignEvent(AssignConfirm);
+			return;
+		}
+
+		Building temp = building.GetComponent<Building>();
+		if (!temp)
+		{
+			MouseManager.Instance.DeleteAssignEvent(AssignConfirm);
+			return;
+		}
+
+		if (!temp.Owner)
+		{
+			temp.Owner = CurrentDept;
+			CurrentDept.AssignedBuilding = building;
+			MouseManager.Instance.DeleteAssignEvent(AssignConfirm);
+			Debug.Log("Assign Complete");
+		}
 	}
 
 	public void CurrentDept_ShowBuilding()
 	{
-		
+
 	}
 
 	public void CurrentDept_People()

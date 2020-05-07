@@ -10,6 +10,7 @@ public class BuildingIcon : MonoBehaviour
     {
         SoundManager.Instance.PlayEffect((int)SoundManager.Effect.Click);
 
+		MouseManager.Instance.SendMessageToPO();
         MouseManager.Instance.PickedObject = CreateBuilding();
         MouseManager.Instance.StartBuilding();
     }

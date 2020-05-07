@@ -34,7 +34,7 @@ public class CharacterFSM : MonoBehaviour
     public Stack<Vector3> Paths;
     public GameObject Destination;
     public int DirectionCount = 6;  //  각 노드당 탐색 방향
-    public float DistanceBetweenNodes = 10.0f;  //  각 노드당 탐색거리
+    public float DistanceBetweenNodes = 8.0f;  //  각 노드당 탐색거리
 
     private readonly float speed = 4.0f;  //  진행 속도
 
@@ -87,10 +87,7 @@ public class CharacterFSM : MonoBehaviour
 		Destination = GameManager.Instance.GetRandomBuildingInGame();
 
 		if (!Destination)
-		{
-			MouseManager.Instance.AddBuildEvent(SetTarget);
 			return;
-		}
 
         TrackTarget();
     }
@@ -225,7 +222,7 @@ public class CharacterFSM : MonoBehaviour
         GC.Collect();
     }
 
-    #endregion
+	#endregion
 }
 
 #region PathNode Class

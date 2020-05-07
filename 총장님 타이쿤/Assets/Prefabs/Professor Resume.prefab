@@ -881,7 +881,7 @@ GameObject:
   - component: {fileID: 1686120111215483847}
   - component: {fileID: 1686120111215483844}
   m_Layer: 5
-  m_Name: Charisma
+  m_Name: Task
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1124,21 +1124,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26bcfb18035cdf340bf2740bf93fb022, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FSM: {fileID: 0}
+  InfoCard: {fileID: 0}
   Name: 
   NameText: {fileID: 1686120110967752882}
   BelongingMajor: {fileID: 0}
   Fame: 0
-  Charisma: 0
+  Task: 0
   Teaching: 0
   Researching: 0
   PayPerMonth: 0
   MajorText: {fileID: 702319079018111158}
   FameText: {fileID: 1686120111797569994}
-  CharismaText: {fileID: 1686120111215483844}
+  TaskText: {fileID: 1686120111215483844}
   TeachingText: {fileID: 1686120111522923664}
   ResearchingText: {fileID: 1686120110048283527}
   PayPerMonthText: {fileID: 1686120111088608763}
+  InfoCardPrefab: {fileID: 8481115833722307181, guid: 6c7a658a36dca3d4e8930d0ec866a851,
+    type: 3}
 --- !u!1 &1686120111453324494
 GameObject:
   m_ObjectHideFlags: 0
@@ -1151,7 +1153,7 @@ GameObject:
   - component: {fileID: 1686120111453324491}
   - component: {fileID: 1686120111453324488}
   m_Layer: 5
-  m_Name: Charisma Icon
+  m_Name: Task Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1175,7 +1177,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -120, y: -180}
-  m_SizeDelta: {x: 55, y: 77}
+  m_SizeDelta: {x: 65, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1686120111453324491
 CanvasRenderer:
@@ -1205,7 +1207,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 695a3ee496544a04e95223bfe6308663, type: 3}
+  m_Sprite: {fileID: 21300000, guid: df0ff8d7a49aac0429ea5d0f0b3c6614, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

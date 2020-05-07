@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 enum NAMES_PROFESSOR
@@ -20,7 +21,7 @@ public class Professor : Person
 	public Major BelongingMajor;
 
 	public int Fame;
-	public int Charisma;
+	public int Task;
 	public int Teaching;
 	public int Researching;
 	public int PayPerMonth;
@@ -29,7 +30,7 @@ public class Professor : Person
 
 	public TextMeshProUGUI MajorText;
 	public TextMeshProUGUI FameText;
-	public TextMeshProUGUI CharismaText;
+	public TextMeshProUGUI TaskText;
 	public TextMeshProUGUI TeachingText;
 	public TextMeshProUGUI ResearchingText;
 	public TextMeshProUGUI PayPerMonthText;
@@ -47,12 +48,34 @@ public class Professor : Person
 
 	public void OnRecruit()
 	{
-		if (character != null)
-		{
-			character.transform.position = new Vector3(-42.0f, -0.05f, -39.0f);
+		GetComponentInParent<RecruitProfessor>().OnRecruitClick(this);
 
-		}
+		//  Professor를 피플 산하로
+		transform.SetParent(PeopleManager.Instance.PeopleInGame.transform);
 
+		Destroy(GetComponentInChildren<Button>().gameObject);
+
+		//  필드 캐릭터
+		character = PeopleManager.Instance.CopyCharacter(uiCharacter);
+		character.AddComponent<CharacterFSM>().State = CharacterState.Idle;
+		SetInfoCard(Instantiate(InfoCardPrefab, character.transform).GetComponent<CharacterInfoCard>());
+	}
+
+	#endregion
+
+	#region 인포 카드
+
+	public override void SetInfoCard(CharacterInfoCard infoCard)
+	{
+		infoCard.Original = this;
+
+		infoCard.NameText.text = Name;
+		infoCard.MajorText.text = BelongingMajor.name;
+		infoCard.FameText.text = Fame.ToString();
+		infoCard.TaskText.text = Task.ToString();
+		infoCard.TeachingText.text = Teaching.ToString();
+		infoCard.ResearchingText.text = Researching.ToString();
+		infoCard.PayPerMonthText.text = "$" + string.Format("{0:#,###}", PayPerMonth) + " / 월";
 	}
 
 	#endregion
@@ -61,12 +84,8 @@ public class Professor : Person
 	{
 		if (!IsPreGenerated)
 		{
-			character = PeopleManager.Instance.GenerateCharacter(this);
-			PeopleManager.Instance.SetCharacterForUI(character);
-			character.transform.localPosition = new Vector3(0.0f, 50.0f, -1.0f);
-
-			FSM = character.GetComponent<CharacterFSM>();
-			FSM.State = CharacterState.None;
+			uiCharacter = PeopleManager.Instance.GenerateCharacterForUI(this);
+			uiCharacter.transform.localPosition = new Vector3(0.0f, 50.0f, -10.0f);
 
 			Name = (NAMES_PROFESSOR.none + Random.Range(1, (int)NAMES_PROFESSOR.선량한)).ToString();
 			NameText.text = Name;
@@ -82,19 +101,15 @@ public class Professor : Person
 
 			Fame = Random.Range(20, 99);
 			FameText.text = Fame.ToString();
-			Charisma = Random.Range(20, 99);
-			CharismaText.text = Charisma.ToString();
+			Task = Random.Range(20, 99);
+			TaskText.text = Task.ToString();
 			Teaching = Random.Range(20, 99);
 			TeachingText.text = Teaching.ToString();
 			Researching = Random.Range(20, 99);
 			ResearchingText.text = Researching.ToString();
 
-			PayPerMonth = (Fame + Charisma + Teaching + Researching) * 3 + 200;
+			PayPerMonth = (Fame + Task + Teaching + Researching) * 3 + 200;
 			PayPerMonthText.text = "$" + string.Format("{0:#,###}", PayPerMonth) + " / 월";
 		}
-
-		
-
 	}
-
 }

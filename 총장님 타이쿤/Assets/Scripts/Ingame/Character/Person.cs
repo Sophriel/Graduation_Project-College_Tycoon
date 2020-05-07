@@ -7,14 +7,20 @@ public class Person : MonoBehaviour
 {
 	protected bool IsPreGenerated;
 	protected GameObject character;
-	public CharacterFSM FSM;
+	protected GameObject uiCharacter;
+
+	public GameObject InfoCardPrefab;
 
 	public string Name;
 	public TextMeshProUGUI NameText;
 
 	private void Start()
 	{
-		character = PeopleManager.Instance.GenerateCharacter(this);
-		FSM = GetComponent<CharacterFSM>();
+		uiCharacter = PeopleManager.Instance.GenerateCharacterForUI(this);
+	}
+
+	public virtual void SetInfoCard(CharacterInfoCard infoCard)
+	{
+
 	}
 }

@@ -52,6 +52,8 @@ public class GameManager : MonoBehaviour
 
 	#endregion
 
+	public GameObject IngameMainCamera;
+
 	public GameObject Fade;
 	private Image fadeImage;
 
@@ -115,8 +117,7 @@ public class GameManager : MonoBehaviour
 
 	public void RegisterUI(SwitchableUI ui)
 	{
-		if (uiOnScreen != null)
-			uiOnScreen.OnClick();
+		CloseUI();
 
 		uiOnScreen = ui;
 	}
@@ -125,6 +126,12 @@ public class GameManager : MonoBehaviour
 	{
 		if (uiOnScreen == ui)
 			uiOnScreen = null;
+	}
+
+	public void CloseUI()
+	{
+		if (uiOnScreen != null)
+			uiOnScreen.OnClick();
 	}
 
 	#endregion

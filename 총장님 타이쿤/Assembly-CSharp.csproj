@@ -73,6 +73,7 @@
     <Compile Include="Assets\etc\Pixelplacement\iTweenPath\iTweenPath.cs" />
     <Compile Include="Assets\Scripts\Ingame\Building.cs" />
     <Compile Include="Assets\Scripts\Ingame\Character\CharacterFSM.cs" />
+    <Compile Include="Assets\Scripts\Ingame\Character\CharacterInfoCard.cs" />
     <Compile Include="Assets\Scripts\Ingame\Character\PeopleManager.cs" />
     <Compile Include="Assets\Scripts\Ingame\Character\Person.cs" />
     <Compile Include="Assets\Scripts\Ingame\Character\Professor.cs" />
