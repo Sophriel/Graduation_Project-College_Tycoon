@@ -3,17 +3,25 @@ using System.Collections;
 using UnityEngine.UI;
 using TMPro;
 
-public class CalendarDateItem : MonoBehaviour {
+public class CalendarDateItem : MonoBehaviour
+{
+	private TextMeshProUGUI date;
 
-	private TextMeshProUGUI tmp;
+	public EventName Name;
+	public string EventContent;
 
 	private void Start()
 	{
-		tmp = gameObject.GetComponentInChildren<TextMeshProUGUI>();
+		date = gameObject.GetComponentInChildren<TextMeshProUGUI>();
 	}
 
 	public void OnDateItemClick()
     {
-        CalendarController._calendarInstance.OnDateItemClick(tmp.text);
+        CalendarController._calendarInstance.OnDateItemClick(date.text, EventContent);
     }
 }
+
+// 이벤트 종류
+// 개강
+// 종강
+//  학교 평가

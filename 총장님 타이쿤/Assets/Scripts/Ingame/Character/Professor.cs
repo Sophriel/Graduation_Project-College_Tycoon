@@ -26,6 +26,36 @@ public class Professor : Person
 	public int Researching;
 	public int PayPerMonth;
 
+	private void Start()
+	{
+		uiCharacter = PeopleManager.Instance.GenerateCharacterForUI(this);
+		uiCharacter.transform.localPosition = new Vector3(0.0f, 50.0f, -10.0f);
+
+		Name = (NAMES_PROFESSOR.none + Random.Range(1, (int)NAMES_PROFESSOR.선량한)).ToString();
+		NameText.text = Name;
+
+		BelongingMajor = DeptManager.Instance.GetEstablishedMajor();
+		if (BelongingMajor == null)  //  학과가 없으면 신설될 때 까지 기다림
+		{
+			DeptManager.Instance.AddNewDeptEvent(ResetDept);
+			MajorText.text = "학과 미정";
+		}
+		else
+			MajorText.text = BelongingMajor.name;
+
+		Fame = Random.Range(20, 99);
+		FameText.text = Fame.ToString();
+		Task = Random.Range(20, 99);
+		TaskText.text = Task.ToString();
+		Teaching = Random.Range(20, 99);
+		TeachingText.text = Teaching.ToString();
+		Researching = Random.Range(20, 99);
+		ResearchingText.text = Researching.ToString();
+
+		PayPerMonth = (Fame + Task + Teaching + Researching) * 30 + 2000;
+		PayPerMonthText.text = "$" + string.Format("{0:#,###}", PayPerMonth) + " / 월";
+	}
+
 	#region UI 작용
 
 	public TextMeshProUGUI MajorText;
@@ -52,13 +82,14 @@ public class Professor : Person
 
 		//  Professor를 피플 산하로
 		transform.SetParent(PeopleManager.Instance.PeopleInGame.transform);
+		BelongingMajor.AddProfessor(this);
 
 		Destroy(GetComponentInChildren<Button>().gameObject);
 
 		//  필드 캐릭터
-		character = PeopleManager.Instance.CopyCharacter(uiCharacter);
-		character.AddComponent<CharacterFSM>().State = CharacterState.Idle;
-		SetInfoCard(Instantiate(InfoCardPrefab, character.transform).GetComponent<CharacterInfoCard>());
+		Character = PeopleManager.Instance.CopyCharacter(uiCharacter);
+		Character.AddComponent<CharacterFSM>().State = CharacterState.Idle;
+		SetInfoCard(Instantiate(InfoCardPrefab, Character.transform).GetComponent<CharacterInfoCard>());
 	}
 
 	#endregion
@@ -80,36 +111,17 @@ public class Professor : Person
 
 	#endregion
 
-	private void Start()
+	#region 이벤트
+
+	public override void MonthlyEvent()
 	{
-		if (!IsPreGenerated)
-		{
-			uiCharacter = PeopleManager.Instance.GenerateCharacterForUI(this);
-			uiCharacter.transform.localPosition = new Vector3(0.0f, 50.0f, -10.0f);
-
-			Name = (NAMES_PROFESSOR.none + Random.Range(1, (int)NAMES_PROFESSOR.선량한)).ToString();
-			NameText.text = Name;
-
-			BelongingMajor = DeptManager.Instance.GetEstablishedMajor();
-			if (BelongingMajor == null)  //  학과가 없으면 신설될 때 까지 기다림
-			{
-				DeptManager.Instance.AddNewDeptEvent(ResetDept);
-				MajorText.text = "학과 미정";
-			}
-			else
-				MajorText.text = BelongingMajor.name;
-
-			Fame = Random.Range(20, 99);
-			FameText.text = Fame.ToString();
-			Task = Random.Range(20, 99);
-			TaskText.text = Task.ToString();
-			Teaching = Random.Range(20, 99);
-			TeachingText.text = Teaching.ToString();
-			Researching = Random.Range(20, 99);
-			ResearchingText.text = Researching.ToString();
-
-			PayPerMonth = (Fame + Task + Teaching + Researching) * 3 + 200;
-			PayPerMonthText.text = "$" + string.Format("{0:#,###}", PayPerMonth) + " / 월";
-		}
+		PayEvent();
 	}
+
+	private void PayEvent()
+	{
+		GameManager.Instance.SpendMoney(PayPerMonth);
+	}
+
+	#endregion
 }

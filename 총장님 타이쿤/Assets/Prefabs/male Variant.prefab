@@ -1,5 +1,19 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!136 &217623425299344869
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6167116177407247522}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.22
+  m_Height: 1.85
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.96, z: 0}
 --- !u!114 &495628454
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17,21 +31,7 @@ MonoBehaviour:
   Keys: []
   Destination: {fileID: 0}
   DirectionCount: 6
-  DistanceBetweenNodes: 7
---- !u!136 &217623425299344869
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6167116177407247522}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.22
-  m_Height: 1.85
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.96, z: 0}
+  DistanceBetweenNodes: 8
 --- !u!1001 &7787627322520508841
 PrefabInstance:
   m_ObjectHideFlags: 0

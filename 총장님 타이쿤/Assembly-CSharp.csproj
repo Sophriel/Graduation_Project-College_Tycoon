@@ -77,11 +77,14 @@
     <Compile Include="Assets\Scripts\Ingame\Character\PeopleManager.cs" />
     <Compile Include="Assets\Scripts\Ingame\Character\Person.cs" />
     <Compile Include="Assets\Scripts\Ingame\Character\Professor.cs" />
+    <Compile Include="Assets\Scripts\Ingame\Character\Student.cs" />
     <Compile Include="Assets\Scripts\Ingame\GameManager.cs" />
     <Compile Include="Assets\Scripts\Ingame\GUICamera.cs" />
     <Compile Include="Assets\Scripts\Ingame\IngameTutorial.cs" />
     <Compile Include="Assets\Scripts\Ingame\MainCamera.cs" />
     <Compile Include="Assets\Scripts\Ingame\MouseManager.cs" />
+    <Compile Include="Assets\Scripts\Ingame\Schedule\ScheduleManager.cs" />
+    <Compile Include="Assets\Scripts\Ingame\Schedule\WorldTimer.cs" />
     <Compile Include="Assets\Scripts\Ingame\UI\Build Menu\BuildingCategoryButton.cs" />
     <Compile Include="Assets\Scripts\Ingame\UI\Build Menu\BuildingIcon.cs" />
     <Compile Include="Assets\Scripts\Ingame\UI\Build Menu\BuildMenuBar.cs" />
@@ -95,7 +98,6 @@
     <Compile Include="Assets\Scripts\Ingame\UI\Main Menu\School\Department.cs" />
     <Compile Include="Assets\Scripts\Ingame\UI\Main Menu\School\DeptManager.cs" />
     <Compile Include="Assets\Scripts\Ingame\UI\Main Menu\School\Major.cs" />
-    <Compile Include="Assets\Scripts\Ingame\UI\WorldTimer.cs" />
     <Compile Include="Assets\Scripts\Main\AssistantTutorial.cs" />
     <Compile Include="Assets\Scripts\Main\MainManager.cs" />
     <Compile Include="Assets\Scripts\SoundManager.cs" />

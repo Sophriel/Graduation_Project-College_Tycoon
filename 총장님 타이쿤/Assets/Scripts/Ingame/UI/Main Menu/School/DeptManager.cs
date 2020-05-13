@@ -29,11 +29,11 @@ public class DeptManager : MonoBehaviour
 
 	public static DeptManager CreateThis()
 	{
-		GameObject MouseManagerGameObject = new GameObject("Department");
+		GameObject DeptManagerGameObject = new GameObject("Department");
 
 		//  하나의 스레드로만 접근 가능하도록 lock
 		lock (_lock)
-			instance = MouseManagerGameObject.AddComponent<DeptManager>();
+			instance = DeptManagerGameObject.AddComponent<DeptManager>();
 
 		return instance;
 	}
@@ -46,6 +46,20 @@ public class DeptManager : MonoBehaviour
 	#endregion
 
 	#region Subject of Observers
+
+	public delegate void TutorialEvent(bool flag);
+	private event TutorialEvent onTutorialEvent;
+
+	public void AddTutorialEvent(TutorialEvent func)
+	{
+		onTutorialEvent += func;
+	}
+
+	public void DeleteTutorialEvent(TutorialEvent func)
+	{
+		if (onTutorialEvent != null)
+			onTutorialEvent -= func;
+	}
 
 	//  +버튼 눌릴때마다 호출
 	public delegate void PlusButtonEvent();
@@ -95,6 +109,12 @@ public class DeptManager : MonoBehaviour
 
 	#endregion
 
+	private void OnEnable()
+	{
+		EstMenu.SetActive(false);
+		UnEstMenu.SetActive(false);
+	}
+
 	#region UI 멤버
 
 	public bool IsEstablishMode = false;
@@ -112,26 +132,15 @@ public class DeptManager : MonoBehaviour
 
 	#endregion
 
-	private void OnEnable()
-	{
-		EstMenu.SetActive(false);
-		UnEstMenu.SetActive(false);
-	}
-
-	#region 매니지먼트 멤버
-
-	public List<College> EstablishedCollege = new List<College>();
-	public List<Major> EstablishedMajor = new List<Major>();
-
-	#endregion
-
 	#region UI 표시
 
 	public void ChangeMode()
 	{
 		//  설립모드로 변경
 		if (!IsEstablishMode)
+		{
 			IsEstablishMode = true;
+		}
 
 		//  기존으로 변경
 		else
@@ -163,17 +172,17 @@ public class DeptManager : MonoBehaviour
 			UnEstMenu.SetActive(false);
 			EstMenu.SetActive(true);
 
-			if (!CurrentDept.AssignedBuilding)
-			{
-				ShowBuildingButton.SetActive(false);
-				AssignButton.SetActive(true);
-			}
+			//if (!CurrentDept.AssignedBuilding)
+			//{
+			//	//ShowBuildingButton.SetActive(false);
+			//	AssignButton.SetActive(true);
+			//}
 
-			else
-			{
-				AssignButton.SetActive(false);
-				ShowBuildingButton.SetActive(true);
-			}
+			//else
+			//{
+			//	AssignButton.SetActive(false);
+			//	//ShowBuildingButton.SetActive(true);
+			//}
 		}
 
 		else
@@ -196,6 +205,7 @@ public class DeptManager : MonoBehaviour
 	{
 		if (CurrentDept.Establish())
 		{
+			onTutorialEvent?.Invoke(true);
 			onNewDeptEvent?.Invoke();
 			ShowMenu(CurrentDept.IsEstablished);
 		}
@@ -231,7 +241,7 @@ public class DeptManager : MonoBehaviour
 		if (!temp.Owner)
 		{
 			temp.Owner = CurrentDept;
-			CurrentDept.AssignedBuilding = building;
+			CurrentDept.AssignedBuilding.Add(building);
 			MouseManager.Instance.DeleteAssignEvent(AssignConfirm);
 			Debug.Log("Assign Complete");
 		}
@@ -264,14 +274,37 @@ public class DeptManager : MonoBehaviour
 
 	#endregion
 
+	#region 매니지먼트 멤버
+
+	public List<College> EstablishedCollege = new List<College>();
+	public List<Major> EstablishedMajor = new List<Major>();
+
+	#endregion
+
 	#region 부서 매니지먼트
 
 	public Major GetEstablishedMajor()
 	{
 		if (EstablishedMajor.Count > 0)
-			return EstablishedMajor[Random.Range(0, EstablishedMajor.Count - 1)];
+			return EstablishedMajor[Random.Range(0, EstablishedMajor.Count)];
 
 		return null;
+	}
+
+	public void Payday()
+	{
+		foreach (Major m in EstablishedMajor)
+		{
+			m.Payday();
+		}
+	}
+
+	public void StartSemester()
+	{
+		foreach (Major m in EstablishedMajor)
+		{
+			m.StartSemester();
+		}
 	}
 
 	#endregion

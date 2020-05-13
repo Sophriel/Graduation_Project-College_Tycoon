@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PeopleManager : MonoBehaviour
 {
@@ -45,18 +46,41 @@ public class PeopleManager : MonoBehaviour
 
 	#endregion
 
+	#region UI
+
+	public TextMeshProUGUI StudentsText;
+	public TextMeshProUGUI ProfessorText;
+	public TextMeshProUGUI PeopleText;
+
+	private void UpdatePeopleText()
+	{
+		StudentsText.text = StudentsCount.ToString();
+		ProfessorText.text = ProfessorsCount.ToString();
+		PeopleText.text = (StudentsCount + ProfessorsCount).ToString();
+	}
+
+	#endregion
+
+	#region Person 매니지먼트
+
+	public int StudentsCount;
+	public int ProfessorsCount;
 	public GameObject PeopleInGame;
+
+	#endregion
 
 	#region 캐릭터
 
 	public GameObject MalePrefab;
 	public GameObject FemalePrefab;
 
+	public GameObject StudentInfoPrefab;
+
 	public GameObject GenerateCharacter()
 	{
 		GameObject character = null;
 
-		switch (Random.Range(0, 1))
+		switch (Random.Range(0, 2))
 		{
 			case 0:
 				character = Instantiate(MalePrefab);
@@ -86,6 +110,9 @@ public class PeopleManager : MonoBehaviour
 		foreach (Transform item in character.GetComponentsInChildren<Transform>())
 			item.gameObject.layer = LayerMask.NameToLayer("Person");
 
+		ProfessorsCount++;
+		UpdatePeopleText();
+
 		return character;
 	}
 
@@ -106,6 +133,27 @@ public class PeopleManager : MonoBehaviour
 		return character;
 	}
 
-	#endregion
+	public Student GenerateStudent(Major major)
+	{
+		GameObject character = GenerateCharacter();
+		Student comp = character.AddComponent<Student>();
+		comp.Character = character;
+		comp.BelongingMajor = major;
+		comp.InfoCardPrefab = StudentInfoPrefab;
 
+		character.transform.localScale = Vector3.one;
+		character.transform.position = new Vector3(-42.0f, -0.05f, -39.0f);
+
+		character.layer = LayerMask.NameToLayer("Person");
+
+		foreach (Transform item in character.GetComponentsInChildren<Transform>())
+			item.gameObject.layer = LayerMask.NameToLayer("Person");
+
+		StudentsCount++;
+		UpdatePeopleText();
+
+		return comp;
+	}
+
+	#endregion
 }

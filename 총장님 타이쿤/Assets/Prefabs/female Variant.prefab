@@ -1,5 +1,19 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!136 &1735273827780001301
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4135572699643985264}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.22
+  m_Height: 1.85
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.96, z: 0}
 --- !u!114 &7603689344808625342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17,21 +31,7 @@ MonoBehaviour:
   Keys: []
   Destination: {fileID: 0}
   DirectionCount: 6
-  DistanceBetweenNodes: 7
---- !u!136 &1735273827780001301
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4135572699643985264}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.22
-  m_Height: 1.85
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.96, z: 0}
+  DistanceBetweenNodes: 8
 --- !u!1001 &6272128884207789332
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -102,6 +102,11 @@ PrefabInstance:
     - target: {fileID: 7957740182516433988, guid: 50bb2319e7e983c4b82cf0b4e21ce92c,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7957740182506597282, guid: 50bb2319e7e983c4b82cf0b4e21ce92c,
+        type: 3}
+      propertyPath: m_ApplyRootMotion
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7957740182516078980, guid: 50bb2319e7e983c4b82cf0b4e21ce92c,

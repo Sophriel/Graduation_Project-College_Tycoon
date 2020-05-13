@@ -38,11 +38,10 @@ public class CalendarController : MonoBehaviour
 			_dateItems.Add(item);
 		}
 
-		_dateTime = DateTime.Now;
+		_dateTime = ScheduleManager.Instance.GameTime.DateTime;
 
 		CreateCalendar();
 
-		//_calendarPanel.SetActive(false);
 		ShowCalendar();
 
 	}
@@ -61,10 +60,20 @@ public class CalendarController : MonoBehaviour
 			if (i >= index)
 			{
 				DateTime thatDay = firstDay.AddDays(date);
+
 				if (thatDay.Month == firstDay.Month)
 				{
 					_dateItems[i].SetActive(true);
 
+					//  이 부분에서 Item에게 넣어주기
+					Schedule schedule = ScheduleManager.Instance.GetSchedule(thatDay.Date);
+					if (schedule != null)
+					{
+						CalendarDateItem item = _dateItems[i].GetComponent<CalendarDateItem>();
+						item.Name = schedule.Name;
+						item.EventContent = schedule.EventContent;
+					}
+					
 					label.text = (date + 1).ToString();
 					date++;
 				}
@@ -117,17 +126,22 @@ public class CalendarController : MonoBehaviour
 	{
 		_calendarPanel.SetActive(true);
 		_target.gameObject.SetActive(false);
+		_targetEvent.gameObject.SetActive(false);
 		//_calendarPanel.transform.position = new Vector3(965, 475, 0);//Input.mousePosition-new Vector3(0,120,0);
 	}
 
 	[SerializeField]
 	private TextMeshProUGUI _target;
+	[SerializeField]
+	private TextMeshProUGUI _targetEvent;
 
 	//Item 클릭했을 경우 Text에 표시.
-	public void OnDateItemClick(string day)
+	public void OnDateItemClick(string day, string content)
 	{
 		_target.text = _yearNumText.text + "-" + _monthNumText.text + "-" + int.Parse(day).ToString("D2");
+		_targetEvent.text = content;
 		_calendarPanel.SetActive(false);
 		_target.gameObject.SetActive(true);
+		_targetEvent.gameObject.SetActive(true);
 	}
 }

@@ -16,6 +16,14 @@ public class Major : Department
 {
 	public College UpperCollege;
 
+	public List<Student> Students;
+	public List<Professor> Professors;
+
+	public int WholeFame = 0;
+	public int StudentsCapacity = 0;
+	public int ClassQuality = 0;
+	public int ResearchSpeed = 0;
+
 	private void Start()
 	{
 		korName = GetComponentInChildren<TextMeshProUGUI>();
@@ -24,6 +32,9 @@ public class Major : Department
 			korName.color = FaintColor;
 
 		gameObject.SetActive(false);
+
+		Students = new List<Student>();
+		Professors = new List<Professor>();
 	}
 
 	//  College의 OnClick을 오버로드
@@ -68,4 +79,40 @@ public class Major : Department
 		//  돈이 부족하면 return false;
 	}
 
+	public void Payday()
+	{
+		foreach (Professor p in Professors)
+		{
+			GameManager.Instance.SpendMoney(p.PayPerMonth);
+		}
+	}
+
+	public void StartSemester()
+	{
+		while (StudentsCapacity > Students.Count)
+		{
+			Students.Add(PeopleManager.Instance.GenerateStudent(this));
+		}
+
+		foreach (Student p in Students)
+		{
+			GameManager.Instance.EarnMoney(4500);
+		}
+
+	}
+
+	public void AddStudent()
+	{
+
+	}
+
+	public void AddProfessor(Professor professor)
+	{
+		Professors.Add(professor);
+
+		WholeFame += professor.Fame;
+		StudentsCapacity += (professor.Task + professor.Teaching) / 4;
+		ClassQuality += professor.Teaching * (professor.Fame / 20);
+		ResearchSpeed += professor.Researching * (professor.Fame / 20);
+	}
 }

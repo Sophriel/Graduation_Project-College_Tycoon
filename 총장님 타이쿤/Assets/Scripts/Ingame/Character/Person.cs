@@ -5,8 +5,7 @@ using TMPro;
 
 public class Person : MonoBehaviour
 {
-	protected bool IsPreGenerated;
-	protected GameObject character;
+	public GameObject Character;
 	protected GameObject uiCharacter;
 
 	public GameObject InfoCardPrefab;
@@ -14,13 +13,6 @@ public class Person : MonoBehaviour
 	public string Name;
 	public TextMeshProUGUI NameText;
 
-	private void Start()
-	{
-		uiCharacter = PeopleManager.Instance.GenerateCharacterForUI(this);
-	}
-
-	public virtual void SetInfoCard(CharacterInfoCard infoCard)
-	{
-
-	}
+	public virtual void SetInfoCard(CharacterInfoCard infoCard) { }
+	public virtual void MonthlyEvent() { }
 }

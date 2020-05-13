@@ -2,11 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public interface SwitchableUI
 {
 	void OnClick();
 }
+
+//학교 점수 = 연구 포인트 + 수업 포인트 + 욕구 포인트 + 명성 가중치 + 재정 상태
+//	각 학과마다 연구 생성하고 수주받기
+//	사람들의 욕구 이벤트
+//  건물 적거나 할당이 안되어있으면 욕구점수 까임
+//	학교 점수로 학교 평가
 
 public class GameManager : MonoBehaviour
 {
@@ -69,6 +76,13 @@ public class GameManager : MonoBehaviour
 
 		buildingsInGame = new List<GameObject>();
 		buildingsInGame.AddRange(GameObject.FindGameObjectsWithTag("Building"));
+
+		SetMoney();
+	}
+
+	private void Update()
+	{
+		SchoolPoint = (ResearchPoint + TeachPoint) * (FamePoint / 10) + SatisfactionPoint + FinancialPoint;
 	}
 
 	#region 페이딩
@@ -136,4 +150,55 @@ public class GameManager : MonoBehaviour
 
 	#endregion
 
+	#region 학교 평가
+
+	public int ResearchPoint;
+	public int TeachPoint;
+	public int SatisfactionPoint;
+	public int FamePoint;
+	public int FinancialPoint;
+
+	public int SchoolPoint = 0;
+
+	#endregion
+
+	#region 자금
+
+	public int Money { get; private set; }
+	public TextMeshProUGUI MoneyText;
+
+	private void SetMoney()
+	{
+		Money = 500000;
+		MoneyText.text = string.Format("{0:#,###}", Money);
+	}
+
+	public void EarnMoney(int money)
+	{
+		Money += money;
+		MoneyText.text = string.Format("{0:#,###}", Money);
+	}
+
+	public bool CanSpendMoney(int price)
+	{
+		if (Money > price)
+		{
+			return true;
+		}
+
+		else
+		{
+			return false;
+		}
+	}
+
+	public void SpendMoney(int price)
+	{
+		Money -= price;
+		MoneyText.text = string.Format("{0:#,###}", Money);
+	}
+
+
+
+	#endregion
 }

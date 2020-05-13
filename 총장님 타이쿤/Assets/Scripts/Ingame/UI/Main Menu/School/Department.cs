@@ -12,10 +12,8 @@ public class Department : MonoBehaviour
 	public bool IsEstablished { get; protected set; }
 
 	protected string info;
-	public GameObject AssignedBuilding;
+	public List<GameObject> AssignedBuilding = new List<GameObject>();
 
-	protected int people;
-	protected int budget;
 	protected string[] researches;
 
 	public virtual void OnClick() { }

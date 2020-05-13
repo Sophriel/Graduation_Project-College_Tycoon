@@ -56,7 +56,7 @@ public class MouseManager : MonoBehaviour
 	#region Subject of Observers
 
 	public delegate void TutorialEvent(bool flag);
-	private event TutorialEvent onTutorialEvent;
+	private event TutorialEvent onTutorialEvent; 
 
 	public void AddTutorialEvent(TutorialEvent func)
 	{
@@ -311,6 +311,8 @@ public class MouseManager : MonoBehaviour
 
 	#region 빌드모드
 
+	private Building pickedBuilding;
+
 	public void StartBuilding()
 	{
 		if (!PickedObject || PickedObject.layer != LayerMask.NameToLayer("Building"))
@@ -327,6 +329,7 @@ public class MouseManager : MonoBehaviour
 
 		//  사람이나 건물을 밀어내진 않지만, 설치하려면 확인해야함
 		PickedObject.GetComponent<Collider>().isTrigger = true;
+		pickedBuilding = PickedObject.GetComponent<Building>();
 	}
 
 	/// <summary> 빌드 모드에서 빌딩에 대한 입력, 조건 처리 </summary>  
@@ -363,12 +366,13 @@ public class MouseManager : MonoBehaviour
 			PickedObject.GetComponent<Collider>().isTrigger = false;
 
 			PickedObject = null;
+			pickedBuilding = null;
 		}
 
 		PointingObject = null;
 	}
 
-	/// <summary> 돈 체크 해야함. </summary>
+	/// <summary> UI에 닿는지, 건물이 지어질 수 있는지 확인 </summary>
 	private bool EnableToBuild()
 	{
 		if (!PickedObject || PickedObject.layer != LayerMask.NameToLayer("Building"))
@@ -380,18 +384,19 @@ public class MouseManager : MonoBehaviour
 		if (CastGuiCamera())
 			return false;
 
-		if (PickedObject.GetComponent<Building>().IsColliding)
+		if (pickedBuilding.IsColliding || !GameManager.Instance.CanSpendMoney(pickedBuilding.Price))
 			return false;
 
 		return true;
 	}
 
-	/// <summary> 돈 지불 해야함. </summary> 
+	/// <summary> 건물을 설치하고 GM에 알림 </summary> 
 	private void ConfirmBuilding()
 	{
 		//  게임내에 추가
-		PickedObject.GetComponent<Building>().IsInstance = false;
+		pickedBuilding.IsInstance = false;
 		GameManager.Instance.AddBuildingInGame(PickedObject);
+		GameManager.Instance.SpendMoney(pickedBuilding.Price);
 
 		//  건설시 옵저버 Notify
 		onTutorialEvent?.Invoke(true);
@@ -447,6 +452,7 @@ public class MouseManager : MonoBehaviour
 			return;
 		}
 
+		onTutorialEvent?.Invoke(true);
 		onAssignEvent?.Invoke(PointingObject);
 
 		EscapeAssignMode();

@@ -59,5 +59,7 @@ public class Building : MonoBehaviour
 
 	public Department Owner;
 
+	public int Price = 1000;
+
 	#endregion
 }
