@@ -157,7 +157,7 @@ public class CharacterFSM : MonoBehaviour
 		int i = 0;
 		while (Nodes.Count > 0)
 		{
-			if (Nodes.Count > 500)
+			if (Nodes.Count > 1000)
 			{
 				Debug.Log(Nodes.Count + " " + name + " Failed to Find");
 				return false;
@@ -240,7 +240,7 @@ public class PathNode : IComparer<Vector3>
 
 	private int dir;
 	private float dist;
-	private readonly int layermask = 1 << LayerMask.NameToLayer("Building");
+	private readonly int layermask = 1 << LayerMask.NameToLayer("Building") | 1 << LayerMask.NameToLayer("Wall");
 
 	public PathNode(CharacterFSM whichCharacter, PathNode parentNode, Vector3 position)
 	{
@@ -260,8 +260,8 @@ public class PathNode : IComparer<Vector3>
 		//  n방향 탐색
 		for (int i = 0; i < dir; i++)
 		{
-			Ray ray = new Ray(pos + Vector3.up, Quaternion.Euler(0f, (360.0f / dir) * i, 0f) * Vector3.forward);
-			bool hit = Physics.SphereCast(ray, 0.1f, out RaycastHit hitInfo, dist, layermask);
+			Ray ray = new Ray(pos + (Vector3.up * 2), Quaternion.Euler(0f, (360.0f / dir) * i, 0f) * Vector3.forward);
+			bool hit = Physics.SphereCast(ray, 0.5f, out RaycastHit hitInfo, dist, layermask);
 
 			//Debug.DrawRay(pos + Vector3.up,
 			//	Quaternion.Euler(0f, (360.0f / dir) * i, 0f) * Vector3.forward * dist, Color.red, 2.0f);
@@ -278,7 +278,7 @@ public class PathNode : IComparer<Vector3>
 			if (Character.Paths.Count > 0)
 				return false;
 
-			Vector3 newPos = ray.GetPoint(dist) + Vector3.down;
+			Vector3 newPos = ray.GetPoint(dist) + (Vector3.down * 2);
 
 			//  충돌체 없을시 해당 위치에 노드 생성
 			//  중복된 위치에 노드 생성 ㄴㄴ

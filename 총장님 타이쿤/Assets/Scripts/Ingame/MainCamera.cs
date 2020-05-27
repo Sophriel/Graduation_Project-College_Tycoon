@@ -29,7 +29,8 @@ public class MainCamera : MonoBehaviour
     private void Start()
     {
 		inputLock = true;
-		iTween.MoveTo(gameObject, iTween.Hash("y", 50.0f, "z", -86.60254f, "time", 3.5f, "easetype", iTween.EaseType.easeOutQuart, "oncomplete", "unlockInput"));
+		iTween.MoveTo(gameObject, iTween.Hash("y", 50.0f, "z", -86.60254f, "time", 3.5f, 
+			"easetype", iTween.EaseType.easeOutQuart, "oncomplete", "unlockInput", "ignoretimescale", true));
 	}
 
 	private void unlockInput()

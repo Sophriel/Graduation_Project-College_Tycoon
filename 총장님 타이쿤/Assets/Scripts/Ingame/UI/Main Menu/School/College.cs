@@ -21,14 +21,14 @@ public class College : Department
 	{
 		DeptManager.Instance.AddPlusButtonEvent(SetActiveThis);
 
-		korName = GetComponentInChildren<TextMeshProUGUI>();
+		KorName = GetComponentInChildren<TextMeshProUGUI>();
 
 		foreach (Major i in SubDepts)
 			i.UpperCollege = this;
 
 		if (!DeptManager.Instance.IsEstablishMode && !IsEstablished)
 		{
-			korName.color = FaintColor;
+			KorName.color = FaintColor;
 			gameObject.SetActive(false);
 		}
 	}
@@ -58,7 +58,7 @@ public class College : Department
 		if (IsEstablished)
 			return false;
 
-		korName.color = DeepColor;
+		KorName.color = DeepColor;
 		IsEstablished = true;
 
 		DeptManager.Instance.EstablishedCollege.Add(this);

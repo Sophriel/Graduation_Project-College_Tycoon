@@ -38,7 +38,8 @@ public class Building : MonoBehaviour
 	private void OnTriggerStay(Collider other)
 	{
 		if (other.gameObject.layer == LayerMask.NameToLayer("Building")
-			|| other.gameObject.layer == LayerMask.NameToLayer("TerrainObject"))
+			|| other.gameObject.layer == LayerMask.NameToLayer("TerrainObject")
+			|| other.gameObject.layer == LayerMask.NameToLayer("Wall"))
 		{
 			IsColliding = true;
 		}
@@ -47,7 +48,8 @@ public class Building : MonoBehaviour
 	private void OnTriggerExit(Collider other)
 	{
 		if (other.gameObject.layer == LayerMask.NameToLayer("Building")
-			|| other.gameObject.layer == LayerMask.NameToLayer("TerrainObject"))
+			|| other.gameObject.layer == LayerMask.NameToLayer("TerrainObject")
+			|| other.gameObject.layer == LayerMask.NameToLayer("Wall"))
 		{
 			IsColliding = false;
 		}

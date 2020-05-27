@@ -48,7 +48,6 @@ public class MouseManager : MonoBehaviour
 	void Awake()
 	{
 		instance = this;
-		DontDestroyOnLoad(gameObject);
 	}
 
 	#endregion
@@ -112,6 +111,7 @@ public class MouseManager : MonoBehaviour
 	public GameObject PickedObject;
 	public float RotationSpeed = 150.0f;
 
+	public ESCMenu ESCmenu;
 
 	private void Start()
 	{
@@ -168,11 +168,17 @@ public class MouseManager : MonoBehaviour
 		}
 	}
 
+	private void OpenESCMenu()
+	{
+		ESCmenu.OnClick();
+	}
+
 	private void OnCancel()
 	{
 		switch (MM)
 		{
 			case MouseMode.Idle:
+				OpenESCMenu();
 				break;
 			case MouseMode.BuildMode:
 				CancelBuilding();
@@ -212,7 +218,7 @@ public class MouseManager : MonoBehaviour
 	{
 		Ray guiRay = guiCamera.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
 
-		if (Physics.Raycast(guiRay, maxDistance, 1 << LayerMask.NameToLayer("UI")))
+		if (Physics.Raycast(guiRay, maxDistance * 5.0f, 1 << LayerMask.NameToLayer("UI")))
 			return true;
 
 		return false;
@@ -454,6 +460,8 @@ public class MouseManager : MonoBehaviour
 
 		onTutorialEvent?.Invoke(true);
 		onAssignEvent?.Invoke(PointingObject);
+
+		SoundManager.Instance.PlayEffect((int)SoundManager.Effect.Build);
 
 		EscapeAssignMode();
 	}

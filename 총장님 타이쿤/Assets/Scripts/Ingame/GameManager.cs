@@ -9,12 +9,6 @@ public interface SwitchableUI
 	void OnClick();
 }
 
-//학교 점수 = 연구 포인트 + 수업 포인트 + 욕구 포인트 + 명성 가중치 + 재정 상태
-//	각 학과마다 연구 생성하고 수주받기
-//	사람들의 욕구 이벤트
-//  건물 적거나 할당이 안되어있으면 욕구점수 까임
-//	학교 점수로 학교 평가
-
 public class GameManager : MonoBehaviour
 {
 	#region Singleton
@@ -54,12 +48,13 @@ public class GameManager : MonoBehaviour
 	void Awake()
 	{
 		instance = this;
-		DontDestroyOnLoad(gameObject);
 	}
 
 	#endregion
 
 	public GameObject IngameMainCamera;
+	public IngameTutorial Assistant;
+	public ResultPanel Result;
 
 	public GameObject Fade;
 	private Image fadeImage;
@@ -70,19 +65,14 @@ public class GameManager : MonoBehaviour
 
 		Fade.GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
 		iTween.ValueTo(gameObject, iTween.Hash("from", 255f, "to", 0f, "time", 1.5f,
-			"easetype", "easeInCubic", "onupdate", "FadeUpdate", "oncomplete", "FadeComplete"));
+			"easetype", "easeInCubic", "onupdate", "FadeUpdate", "oncomplete", "FadeComplete", "ignoretimescale", true));
 
-		SoundManager.Instance.FadeOut(0, 20, 5.0f);
+		SoundManager.Instance.FadeOut(0, 10, 5.0f);
 
 		buildingsInGame = new List<GameObject>();
 		buildingsInGame.AddRange(GameObject.FindGameObjectsWithTag("Building"));
 
 		SetMoney();
-	}
-
-	private void Update()
-	{
-		SchoolPoint = (ResearchPoint + TeachPoint) * (FamePoint / 10) + SatisfactionPoint + FinancialPoint;
 	}
 
 	#region 페이딩
@@ -150,13 +140,55 @@ public class GameManager : MonoBehaviour
 
 	#endregion
 
+	#region 냥비서님 스크립트
+
+	public void StartSemester()
+	{
+		StartCoroutine(Assistant.StartSemester());
+	}
+
+	public void EndSemester()
+	{
+		PeopleManager.Instance.EvaluateSchool();
+		DeptManager.Instance.EvaluateSchool();
+
+		FinancialPoint = (int)(2000.0 / System.Math.Sqrt(System.Math.PI * 2) * System.Math.Pow(System.Math.E, System.Math.Pow((Money - 200000.0) / 500000.0, 2.0) / -2));
+		SchoolPoint = (ResearchPoint + TeachPoint) * (FamePoint / 10) + SatisfactionPoint + FinancialPoint;
+
+		StartCoroutine(Assistant.EndSemester());
+	}
+
+	public void EvaluateSchool()
+	{
+		PeopleManager.Instance.EvaluateSchool();
+		DeptManager.Instance.EvaluateSchool();
+
+		FinancialPoint = (int)(2000.0 / System.Math.Sqrt(System.Math.PI * 2) * System.Math.Pow(System.Math.E, System.Math.Pow((Money - 200000.0) / 500000.0, 2.0) / -2));
+		SchoolPoint = (ResearchPoint + TeachPoint) * (FamePoint / 10) + SatisfactionPoint + FinancialPoint;
+
+		string schoolGrade = "F";
+
+		if (SchoolPoint > 20000)
+			schoolGrade = "A";
+		else if (SchoolPoint > 15000)
+			schoolGrade = "B";
+		else if (SchoolPoint > 10000)
+			schoolGrade = "C";
+		else if (SchoolPoint > 5000)
+			schoolGrade = "D";
+
+		StartCoroutine(Result.EvaluateSchool(schoolGrade));
+	}
+
+	#endregion
+
 	#region 학교 평가
 
-	public int ResearchPoint;
-	public int TeachPoint;
-	public int SatisfactionPoint;
-	public int FamePoint;
-	public int FinancialPoint;
+	public int ResearchPoint = 0;
+	public int TeachPoint = 0;
+	public int SatisfactionPoint = 0;
+	public int FamePoint = 0;
+	public int FinancialPoint = 0;
 
 	public int SchoolPoint = 0;
 
@@ -169,7 +201,7 @@ public class GameManager : MonoBehaviour
 
 	private void SetMoney()
 	{
-		Money = 500000;
+		Money = 50000;
 		MoneyText.text = string.Format("{0:#,###}", Money);
 	}
 
@@ -188,6 +220,7 @@ public class GameManager : MonoBehaviour
 
 		else
 		{
+			StartCoroutine(Assistant.NeedMoreMoney(price - Money));
 			return false;
 		}
 	}

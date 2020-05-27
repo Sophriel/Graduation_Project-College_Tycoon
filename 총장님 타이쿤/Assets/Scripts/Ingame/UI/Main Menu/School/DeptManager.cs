@@ -107,6 +107,21 @@ public class DeptManager : MonoBehaviour
 			onNewDeptEvent -= func;
 	}
 
+	//  세미나가 개최될 때 마다 호출
+	public delegate void SeminarEvent();
+	private event SeminarEvent onSeminarEvent;
+
+	public void AddSeminarEvent(SeminarEvent func)
+	{
+		onSeminarEvent += func;
+	}
+
+	public void DeleteSeminarEvent(SeminarEvent func)
+	{
+		if (onSeminarEvent != null)
+			onSeminarEvent -= func;
+	}
+
 	#endregion
 
 	private void OnEnable()
@@ -243,7 +258,7 @@ public class DeptManager : MonoBehaviour
 			temp.Owner = CurrentDept;
 			CurrentDept.AssignedBuilding.Add(building);
 			MouseManager.Instance.DeleteAssignEvent(AssignConfirm);
-			Debug.Log("Assign Complete");
+
 		}
 	}
 
@@ -262,9 +277,16 @@ public class DeptManager : MonoBehaviour
 
 	}
 
-	public void CurrentDept_Researches()
+	public void CurrentDept_Seminar()
 	{
+		if (!GameManager.Instance.CanSpendMoney(50000))
+		{
+			return;
+		}
 
+		CurrentDept.Seminar();
+		onSeminarEvent?.Invoke();
+		onSeminarEvent = null;
 	}
 
 	public void CurrentDept_Close()
@@ -276,12 +298,22 @@ public class DeptManager : MonoBehaviour
 
 	#region 매니지먼트 멤버
 
+	public ResearchList Researcher;
+
 	public List<College> EstablishedCollege = new List<College>();
 	public List<Major> EstablishedMajor = new List<Major>();
 
 	#endregion
 
 	#region 부서 매니지먼트
+
+	public College GetEstablishedCollege()
+	{
+		if (EstablishedCollege.Count > 0)
+			return EstablishedCollege[Random.Range(0, EstablishedCollege.Count)];
+
+		return null;
+	}
 
 	public Major GetEstablishedMajor()
 	{
@@ -305,6 +337,22 @@ public class DeptManager : MonoBehaviour
 		{
 			m.StartSemester();
 		}
+	}
+
+	public void EvaluateSchool()
+	{
+		GameManager.Instance.FamePoint = 0;
+		GameManager.Instance.TeachPoint = 0;
+		
+		foreach (Major m in EstablishedMajor)
+		{
+			GameManager.Instance.FamePoint += m.WholeFame;
+			foreach (Professor p in m.Professors)
+				GameManager.Instance.TeachPoint += p.Teaching;
+			GameManager.Instance.SatisfactionPoint += (m.AssignedBuilding.Count * 30) - m.StudentsCapacity;
+		}
+
+		GameManager.Instance.FamePoint /= EstablishedMajor.Count;
 	}
 
 	#endregion

@@ -32,7 +32,7 @@ public class AssistantTutorial : MonoBehaviour
 
     IEnumerator Tutorial()
     {
-        SoundManager.Instance.FadeOut(35, 20, 3.0f);
+        SoundManager.Instance.FadeOut(20, 10, 3.0f);
         DialogBox.SetActive(true);
         Text.text = "";
         yield return new WaitForSeconds(2.0f);

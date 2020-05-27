@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-enum NAMES_MAJORS
+public enum NAMES_MAJORS
 {
 	none = -1,
 	게임소프트웨어,
@@ -14,6 +14,7 @@ enum NAMES_MAJORS
 
 public class Major : Department
 {
+	public NAMES_MAJORS MajorName;
 	public College UpperCollege;
 
 	public List<Student> Students;
@@ -26,10 +27,10 @@ public class Major : Department
 
 	private void Start()
 	{
-		korName = GetComponentInChildren<TextMeshProUGUI>();
+		KorName = GetComponentInChildren<TextMeshProUGUI>();
 
 		if (!IsEstablished)
-			korName.color = FaintColor;
+			KorName.color = FaintColor;
 
 		gameObject.SetActive(false);
 
@@ -37,7 +38,8 @@ public class Major : Department
 		Professors = new List<Professor>();
 	}
 
-	//  College의 OnClick을 오버로드
+	#region UI
+
 	public override void OnClick()
 	{
 		DeptManager.Instance.ShowMenu(IsEstablished);
@@ -60,6 +62,10 @@ public class Major : Department
 		}
 	}
 
+	#endregion
+
+	#region 작용
+
 	public override bool Establish()
 	{
 		if (IsEstablished)
@@ -68,7 +74,25 @@ public class Major : Department
 		//  상위 대학이 설립된 경우에만
 		if (UpperCollege.IsEstablished)
 		{
-			korName.color = DeepColor;
+			switch (KorName.text)
+			{
+				case "게임소프트웨어":
+				case "게임그래픽디자인":
+					if (!GameManager.Instance.CanSpendMoney(30000))
+						return false;
+					GameManager.Instance.SpendMoney(30000);
+					break;
+				case "디자인 컨버전스":
+				case "영상 애니메이션":
+					if (!GameManager.Instance.CanSpendMoney(100000))
+						return false;
+					GameManager.Instance.SpendMoney(100000);
+					break;
+				default:
+					return false;
+			}
+
+			KorName.color = DeepColor;
 			IsEstablished = true;
 
 			DeptManager.Instance.EstablishedMajor.Add(this);
@@ -76,8 +100,39 @@ public class Major : Department
 		}
 
 		return false;
-		//  돈이 부족하면 return false;
 	}
+
+	public void AddProfessor(Professor professor)
+	{
+		Professors.Add(professor);
+
+		WholeFame = 0;
+		foreach (Professor p in Professors)
+		{
+			WholeFame += professor.Fame;
+		}
+		WholeFame /= Professors.Count;
+		StudentsCapacity += (professor.Task + professor.Teaching) / 10;
+		ClassQuality += professor.Teaching * (professor.Fame / 20);
+		ResearchSpeed += professor.Researching * (professor.Fame / 20);
+	}
+
+	public override void Seminar()
+	{
+		GameManager.Instance.SpendMoney(50000);
+
+		foreach (Professor p in Professors)
+		{
+			p.Fame += Random.Range(0, 2);
+			p.Teaching += Random.Range(1, 10);
+			p.Researching += Random.Range(1, 10);
+			p.Task += Random.Range(1, 10);
+		}
+	}
+
+	#endregion
+
+	#region 정기 이벤트
 
 	public void Payday()
 	{
@@ -101,18 +156,5 @@ public class Major : Department
 
 	}
 
-	public void AddStudent()
-	{
-
-	}
-
-	public void AddProfessor(Professor professor)
-	{
-		Professors.Add(professor);
-
-		WholeFame += professor.Fame;
-		StudentsCapacity += (professor.Task + professor.Teaching) / 4;
-		ClassQuality += professor.Teaching * (professor.Fame / 20);
-		ResearchSpeed += professor.Researching * (professor.Fame / 20);
-	}
+	#endregion
 }

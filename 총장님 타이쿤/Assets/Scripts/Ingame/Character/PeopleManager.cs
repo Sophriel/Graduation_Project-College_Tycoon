@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class PeopleManager : MonoBehaviour
@@ -59,13 +60,155 @@ public class PeopleManager : MonoBehaviour
 		PeopleText.text = (StudentsCount + ProfessorsCount).ToString();
 	}
 
+	public Sprite GoodBG;
+	public Sprite BadBG;
+	public Sprite GoodFace;
+	public Sprite BadFace;
+
+	public Image StudentBG;
+	public Image StudentFace;
+	public Image StudentBar;
+	public Image ProfessorBG;
+	public Image ProfessorFace;
+	public Image ProfessorBar;
+
+	private void Update()
+	{
+		UpdateSatisfaction();
+	}
+
+	private void UpdateSatisfaction()
+	{
+		if (StudentsSatisfaction > 1000)
+			StudentsSatisfaction = 1000;
+		else if (StudentsSatisfaction < 0)
+			StudentsSatisfaction = 0;
+
+		if (StudentsSatisfaction > 500)
+		{
+			StudentBG.sprite = GoodBG;
+			StudentFace.sprite = GoodFace;
+		}
+		else if (StudentsSatisfaction > 0)
+		{
+			StudentBG.sprite = BadBG;
+			StudentFace.sprite = BadFace;
+		}
+
+		StudentBar.rectTransform.offsetMax = new Vector2(-1110f + (430 * StudentsSatisfaction / 1000f), 208f);
+		StudentBar.color = new Color(1.0f - (StudentsSatisfaction / 1000f), StudentsSatisfaction / 1000f, 0.0f);
+
+
+		if (ProfessorsSatisfaction > 1000)
+			ProfessorsSatisfaction = 1000;
+		else if (ProfessorsSatisfaction < 0)
+			ProfessorsSatisfaction = 0;
+
+		if (ProfessorsSatisfaction > 500)
+		{
+			ProfessorBG.sprite = GoodBG;
+			ProfessorFace.sprite = GoodFace;
+		}
+		else if (ProfessorsSatisfaction > 0)
+		{
+			ProfessorBG.sprite = BadBG;
+			ProfessorFace.sprite = BadFace;
+		}
+
+		ProfessorBar.rectTransform.offsetMax = new Vector2(-490f + (430 * ProfessorsSatisfaction / 1000f), 208);
+		ProfessorBar.color = new Color(1 - (ProfessorsSatisfaction / 1000f), ProfessorsSatisfaction / 1000f, 0.0f);
+	}
+
+	public void SolveProblem()
+	{
+
+	}
+
+	public GameObject OpinionPrefab;
+	private int opNum = 0;
+	public Transform StudentOpinionLayout;
+	public Transform ProfessorOpinionLayout;
+
+	public void AddOpinion()
+	{
+		switch (opNum)
+		{
+			case 0:
+				NeedResearch();
+				break;
+			case 1:
+				NeedMoreBuilding();
+				break;
+			case 2:
+				NeedSeminar();
+				break;
+			case 3:
+				NeedMoreProfessor();
+				break;
+			default:
+				break;
+		}
+
+		opNum++;
+	}
+
+	#endregion
+
+	#region 오피니언 이벤트 목록
+
+	private void NeedResearch()
+	{
+		Opinion opinion = Instantiate(OpinionPrefab, ProfessorOpinionLayout).GetComponent<Opinion>();
+
+		opinion.CurrentBG.sprite = BadBG;
+		opinion.OpinionContent.text = "연구를 진행해주세요!";
+		DeptManager.Instance.Researcher.OnResearchStart += opinion.Solve;
+	}
+
+	private void NeedMoreBuilding()
+	{
+		Opinion opinion = Instantiate(OpinionPrefab, StudentOpinionLayout).GetComponent<Opinion>();
+
+		opinion.CurrentBG.sprite = BadBG;
+		opinion.OpinionContent.text = "학교 건물이 너무 적어요!";
+		MouseManager.Instance.AddBuildEvent(opinion.Solve);
+	}
+
+	private void NeedSeminar()
+	{
+		Opinion opinion = Instantiate(OpinionPrefab, ProfessorOpinionLayout).GetComponent<Opinion>();
+
+		opinion.CurrentBG.sprite = BadBG;
+		opinion.OpinionContent.text = DeptManager.Instance.EstablishedMajor[0].Professors[0].Name + " 교수는 세미나를 원합니다!";
+		DeptManager.Instance.AddSeminarEvent(opinion.Solve);
+	}
+
+	private void NeedMoreProfessor()
+	{
+		Opinion opinion = Instantiate(OpinionPrefab, StudentOpinionLayout).GetComponent<Opinion>();
+
+		opinion.CurrentBG.sprite = BadBG;
+		opinion.OpinionContent.text = "교수님이 더 있으면 좋겠습니다";
+		Recruiter.OnRecruitEvent += opinion.Solve;
+	}
+
 	#endregion
 
 	#region Person 매니지먼트
 
+	public RecruitProfessor Recruiter;
+
 	public int StudentsCount;
 	public int ProfessorsCount;
 	public GameObject PeopleInGame;
+
+	public int StudentsSatisfaction;
+	public int ProfessorsSatisfaction;
+
+	public void EvaluateSchool()
+	{
+		GameManager.Instance.SatisfactionPoint = StudentsSatisfaction + ProfessorsSatisfaction;
+	}
 
 	#endregion
 

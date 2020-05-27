@@ -13,6 +13,9 @@ public class RecruitProfessor : MonoBehaviour
 
 	private List<GameObject> ResumeList;
 
+	public delegate void RecruitEvent();
+	public event RecruitEvent OnRecruitEvent;
+
 	private void Start()
 	{
 		ResumeList = new List<GameObject>();
@@ -47,7 +50,7 @@ public class RecruitProfessor : MonoBehaviour
 
 	public void OnRerollClick()
 	{
-		//  돈 깎고
+		GameManager.Instance.SpendMoney(1000);
 
 		while (ResumeList.Count > 0)
 		{
@@ -61,6 +64,8 @@ public class RecruitProfessor : MonoBehaviour
 	public void OnRecruitClick(Professor professor)
 	{
 		ResumeList.Remove(professor.gameObject);
+		OnRecruitEvent?.Invoke();
+		OnRecruitEvent = null;
 
 		if (ResumeList.Count == 0)
 		{

@@ -23,7 +23,7 @@ public class WorldTimer : MonoBehaviour
 		PlayButton.GetComponent<Image>().color = staticBlueColor;
 
 		DateTime = new System.DateTime(2020, 1, 1);
-		timeSpeed = 0.2f;
+		timeSpeed = 0.4f;
 
 		timeUI = GetComponentInChildren<TextMeshProUGUI>();
     }

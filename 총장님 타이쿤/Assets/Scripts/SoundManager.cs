@@ -41,7 +41,6 @@ public class SoundManager : MonoBehaviour
     void Awake()
     {
         instance = this;
-        DontDestroyOnLoad(gameObject);
     }
 
     #endregion
@@ -72,13 +71,13 @@ public class SoundManager : MonoBehaviour
     public void FadeIn(int start, int target, float time)
     {
         iTween.ValueTo(gameObject, iTween.Hash("from", start, "to", target, "time", time,
-            "easetype", "easeInQuad", "onupdate", "FadeAudio"));
+            "easetype", "easeInQuad", "onupdate", "FadeAudio", "ignoretimescale", true));
     }
 
     public void FadeOut(int start, int target, float time)
     {
         iTween.ValueTo(gameObject, iTween.Hash("from", start, "to", target, "time", time,
-            "easetype", "easeInQuad", "onupdate", "FadeAudio"));
+            "easetype", "easeInQuad", "onupdate", "FadeAudio", "ignoretimescale", true));
     }
 
     private void FadeAudio(int volume)

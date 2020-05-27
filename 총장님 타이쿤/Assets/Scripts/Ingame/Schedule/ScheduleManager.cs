@@ -94,6 +94,8 @@ public class ScheduleManager : MonoBehaviour
 	{
 		Schedule eventItem;
 
+		#region 정기 이벤트
+
 		for (int y = 2020; y < 2024; y++)
 		{
 			for (int m = 1; m < 13; m++)
@@ -106,47 +108,78 @@ public class ScheduleManager : MonoBehaviour
 				eventItem.OnToday += Payday;
 				EventList.Add(eventItem.EventDate, eventItem);
 			}
+
+			//  개강
+			eventItem = new Schedule();
+			eventItem.Name = EventName.개강;
+			eventItem.EventDate = new System.DateTime(y, 3, 2);
+			eventItem.EventContent = "개강하는 날!";
+			eventItem.OnToday += StartSemester;
+			EventList.Add(eventItem.EventDate, eventItem);
+
+			//  종강
+			eventItem = new Schedule();
+			eventItem.Name = EventName.종강;
+			eventItem.EventDate = new System.DateTime(y, 6, 14);
+			eventItem.EventContent = "종강하는 날!";
+			eventItem.OnToday += EndSemester;
+			EventList.Add(eventItem.EventDate, eventItem);
+
+			//  개강
+			eventItem = new Schedule();
+			eventItem.Name = EventName.개강;
+			eventItem.EventDate = new System.DateTime(y, 9, 2);
+			eventItem.EventContent = "개강하는 날!";
+			eventItem.OnToday += StartSemester;
+			EventList.Add(eventItem.EventDate, eventItem);
+
+			//  종강
+			eventItem = new Schedule();
+			eventItem.Name = EventName.종강;
+			eventItem.EventDate = new System.DateTime(y, 12, 14);
+			eventItem.EventContent = "종강하는 날!";
+			eventItem.OnToday += EndSemester;
+			EventList.Add(eventItem.EventDate, eventItem);
+
+			//  학교 평가
+			eventItem = new Schedule();
+			eventItem.Name = EventName.학교평가;
+			eventItem.EventDate = new System.DateTime(y, 12, 31);
+			eventItem.EventContent = "학교 평가";
+			eventItem.OnToday += EvaluateSchool;
+			EventList.Add(eventItem.EventDate, eventItem);
+
+			#endregion
+
+			#region 요구 이벤트
+
+			eventItem = new Schedule();
+			eventItem.EventDate = new System.DateTime(y, 4, 15);
+			eventItem.EventContent = "";
+			eventItem.OnToday += PeopleManager.Instance.AddOpinion;
+			EventList.Add(eventItem.EventDate, eventItem);
+
+			eventItem = new Schedule();
+			eventItem.EventDate = new System.DateTime(y, 5, 24);
+			eventItem.EventContent = "";
+			eventItem.OnToday += PeopleManager.Instance.AddOpinion;
+			EventList.Add(eventItem.EventDate, eventItem);
+
+			eventItem = new Schedule();
+			eventItem.EventDate = new System.DateTime(y, 7, 7);
+			eventItem.EventContent = "";
+			eventItem.OnToday += PeopleManager.Instance.AddOpinion;
+			EventList.Add(eventItem.EventDate, eventItem);
+
+			eventItem = new Schedule();
+			eventItem.EventDate = new System.DateTime(y, 10, 11);
+			eventItem.EventContent = "";
+			eventItem.OnToday += PeopleManager.Instance.AddOpinion;
+			EventList.Add(eventItem.EventDate, eventItem);
+
 		}
 
-		//  개강
-		eventItem = new Schedule();
-		eventItem.Name = EventName.개강;
-		eventItem.EventDate = new System.DateTime(2020, 3, 2);
-		eventItem.EventContent = "개강하는 날!";
-		eventItem.OnToday += StartSemester;
-		EventList.Add(eventItem.EventDate, eventItem);
-
-		//  종강
-		eventItem = new Schedule();
-		eventItem.Name = EventName.종강;
-		eventItem.EventDate = new System.DateTime(2020, 6, 14);
-		eventItem.EventContent = "종강하는 날!";
-		eventItem.OnToday += EndSemester;
-		EventList.Add(eventItem.EventDate, eventItem);
-
-		//  개강
-		eventItem = new Schedule();
-		eventItem.Name = EventName.개강;
-		eventItem.EventDate = new System.DateTime(2020, 9, 2);
-		eventItem.EventContent = "개강하는 날!";
-		eventItem.OnToday += StartSemester;
-		EventList.Add(eventItem.EventDate, eventItem);
-
-		//  종강
-		eventItem = new Schedule();
-		eventItem.Name = EventName.종강;
-		eventItem.EventDate = new System.DateTime(2020, 12, 14);
-		eventItem.EventContent = "종강하는 날!";
-		eventItem.OnToday += EndSemester;
-		EventList.Add(eventItem.EventDate, eventItem);
-
-		//  학교 평가
-		eventItem = new Schedule();
-		eventItem.Name = EventName.학교평가;
-		eventItem.EventDate = new System.DateTime(2020, 12, 31);
-		eventItem.EventContent = "학교 평가";
-		eventItem.OnToday += EvaluateSchool;
-		EventList.Add(eventItem.EventDate, eventItem);
+		#endregion
 	}
 
 	#region 스케쥴 매니지먼트
@@ -173,7 +206,7 @@ public class ScheduleManager : MonoBehaviour
 
 	public void EndTutorial()
 	{
-		GameTime.SetTimeSpeed(1.0f);
+		GameTime.SetTimeSpeed(1.8f);
 	}
 
 	public void Payday()  //  건물 유지비 추가
@@ -183,17 +216,18 @@ public class ScheduleManager : MonoBehaviour
 
 	public void StartSemester()
 	{
+		GameManager.Instance.StartSemester();
 		DeptManager.Instance.StartSemester();
 	}
 
 	public void EndSemester()
 	{
-
+		GameManager.Instance.EndSemester();
 	}
 
 	public void EvaluateSchool()
 	{
-
+		GameManager.Instance.EvaluateSchool();
 	}
 
 	#endregion
