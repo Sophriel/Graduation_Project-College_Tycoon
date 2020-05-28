@@ -24,6 +24,8 @@ public class RecruitProfessor : MonoBehaviour
 		DeptManager.Instance.AddNewDeptEvent(UpdateProfessors);
 	}
 
+	#region 갱신
+
 	public void UpdateProfessors()
 	{
 		if (DeptManager.Instance.GetEstablishedMajor())
@@ -60,6 +62,8 @@ public class RecruitProfessor : MonoBehaviour
 
 		UpdateProfessors();
 	}
+
+	#endregion
 
 	public void OnRecruitClick(Professor professor)
 	{

@@ -20,6 +20,6 @@ public class Department : MonoBehaviour
 	public virtual void SetActiveThis() { }
 	public virtual bool Establish() { return true; }
 	public virtual void AssignBuilding() { }
-	public virtual void Seminar() { }
+	public virtual bool Seminar(Seminar seminar) { return true; }
 	public virtual void Close() { }
 }

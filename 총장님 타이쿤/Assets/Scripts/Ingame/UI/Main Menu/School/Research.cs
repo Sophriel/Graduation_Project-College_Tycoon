@@ -78,6 +78,11 @@ public class Research : MonoBehaviour
 			return;
 		}
 
+		if (!GameManager.Instance.CanSpendMoney(Price))
+		{
+			return;
+		}
+
 		GameManager.Instance.SpendMoney(Price);
 
 		is_Progressing = true;

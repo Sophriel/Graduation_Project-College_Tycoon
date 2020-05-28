@@ -99,7 +99,8 @@ public class MouseManager : MonoBehaviour
 	#endregion
 
 	private MainCamera mainCamera;
-	private GUICamera guiCamera;
+	[SerializeField]
+	private Camera guiCamera;
 	private bool isMainRayHit;
 	private float maxDistance = 200.0f;
 
@@ -116,7 +117,6 @@ public class MouseManager : MonoBehaviour
 	private void Start()
 	{
 		mainCamera = FindObjectOfType<MainCamera>();
-		guiCamera = FindObjectOfType<GUICamera>();
 
 		MM = MouseMode.Idle;
 	}
@@ -168,6 +168,8 @@ public class MouseManager : MonoBehaviour
 		}
 	}
 
+	#region ESC
+
 	private void OpenESCMenu()
 	{
 		ESCmenu.OnClick();
@@ -190,6 +192,8 @@ public class MouseManager : MonoBehaviour
 				break;
 		}
 	}
+
+	#endregion
 
 	#region 캐스팅
 
@@ -216,7 +220,7 @@ public class MouseManager : MonoBehaviour
 	/// <summary> UI로 캐스팅 </summary> 
 	private bool CastGuiCamera()
 	{
-		Ray guiRay = guiCamera.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
+		Ray guiRay = guiCamera.ScreenPointToRay(Input.mousePosition);
 
 		if (Physics.Raycast(guiRay, maxDistance * 5.0f, 1 << LayerMask.NameToLayer("UI")))
 			return true;
@@ -352,7 +356,7 @@ public class MouseManager : MonoBehaviour
 		//  오브젝트 이동 회전
 		PickedObject.transform.position = PointingPosition;
 		PickedObject.transform.rotation = Quaternion.Euler(0.0f,
-			PickedObject.transform.rotation.eulerAngles.y + Input.GetAxis("Mouse X") * RotationSpeed * Time.unscaledDeltaTime, 0.0f);
+			PickedObject.transform.rotation.eulerAngles.y + Input.GetAxisRaw("Mouse X") * RotationSpeed * Time.unscaledDeltaTime, 0.0f);
 
 		//  오브젝트 색상 변경
 		if (EnableToBuild())

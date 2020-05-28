@@ -6,7 +6,9 @@ public class BuildMenuBar : MonoBehaviour
 {
     public BuildingCategoryButton OpenedButton;
 
-    public void OpenBar()
+	#region UI 연출
+
+	public void OpenBar()
     {
         gameObject.SetActive(true);
 
@@ -26,4 +28,6 @@ public class BuildMenuBar : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
+
+	#endregion
 }

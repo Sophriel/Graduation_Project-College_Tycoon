@@ -48,6 +48,8 @@ public class WorldTimer : MonoBehaviour
 		timeSpeed = speed;
 	}
 
+	#region 버튼 작용
+
 	public void OnPlayButton()
 	{
 		timeScale = 1;
@@ -71,4 +73,6 @@ public class WorldTimer : MonoBehaviour
 
 		TimeSpeedUI.text = "x" + timeScale.ToString();
 	}
+
+	#endregion
 }

@@ -8,8 +8,9 @@ public class BuildMenuButton : MonoBehaviour, SwitchableUI
 
     public BuildMenuBar ChildBar;
 
+	#region UI 작용
 
-    public void OnClick()
+	public void OnClick()
     {
         SoundManager.Instance.PlayEffect((int)SoundManager.Effect.MenuOpen);
 
@@ -45,4 +46,6 @@ public class BuildMenuButton : MonoBehaviour, SwitchableUI
     {
         gameObject.SetActive(false);
     }
+
+	#endregion
 }

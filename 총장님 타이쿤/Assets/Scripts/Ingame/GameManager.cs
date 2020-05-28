@@ -213,7 +213,7 @@ public class GameManager : MonoBehaviour
 
 	public bool CanSpendMoney(int price)
 	{
-		if (Money > price)
+		if (Money >= price)
 		{
 			return true;
 		}
@@ -230,8 +230,6 @@ public class GameManager : MonoBehaviour
 		Money -= price;
 		MoneyText.text = string.Format("{0:#,###}", Money);
 	}
-
-
 
 	#endregion
 }

@@ -44,16 +44,11 @@ public class Professor : Person
 			MajorText.text = BelongingMajor.name;
 
 		Fame = Random.Range(20, 99);
-		FameText.text = Fame.ToString();
 		Task = Random.Range(20, 99);
-		TaskText.text = Task.ToString();
 		Teaching = Random.Range(20, 99);
-		TeachingText.text = Teaching.ToString();
 		Researching = Random.Range(20, 99);
-		ResearchingText.text = Researching.ToString();
-
 		PayPerMonth = (Fame + Task + Teaching + Researching) * 30 + 2000;
-		PayPerMonthText.text = "$" + string.Format("{0:#,###}", PayPerMonth) + " / 월";
+		UpdateText();
 	}
 
 	#region UI 작용
@@ -90,6 +85,15 @@ public class Professor : Person
 		Character = PeopleManager.Instance.CopyCharacter(uiCharacter);
 		Character.AddComponent<CharacterFSM>().State = CharacterState.Idle;
 		SetInfoCard(Instantiate(InfoCardPrefab, Character.transform).GetComponent<CharacterInfoCard>());
+	}
+
+	public void UpdateText()
+	{
+		FameText.text = Fame.ToString();
+		TaskText.text = Task.ToString();
+		TeachingText.text = Teaching.ToString();
+		ResearchingText.text = Researching.ToString();
+		PayPerMonthText.text = "$" + string.Format("{0:#,###}", PayPerMonth) + " / 월";
 	}
 
 	#endregion

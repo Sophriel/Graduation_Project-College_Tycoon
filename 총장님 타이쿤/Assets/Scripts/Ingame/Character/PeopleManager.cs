@@ -137,13 +137,13 @@ public class PeopleManager : MonoBehaviour
 				NeedResearch();
 				break;
 			case 1:
-				NeedMoreBuilding();
+				NeedMoreProfessor();				
 				break;
 			case 2:
 				NeedSeminar();
 				break;
 			case 3:
-				NeedMoreProfessor();
+				NeedMoreBuilding();
 				break;
 			default:
 				break;

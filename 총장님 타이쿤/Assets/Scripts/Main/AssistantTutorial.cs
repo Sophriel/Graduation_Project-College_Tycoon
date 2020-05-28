@@ -30,9 +30,11 @@ public class AssistantTutorial : MonoBehaviour
         StartCoroutine(Tutorial());
     }
 
-    IEnumerator Tutorial()
+	#region 튜토리얼 진행
+
+	IEnumerator Tutorial()
     {
-        SoundManager.Instance.FadeOut(20, 10, 3.0f);
+        SoundManager.Instance.FadeOut(15, 10, 3.0f);
         DialogBox.SetActive(true);
         Text.text = "";
         yield return new WaitForSeconds(2.0f);
@@ -97,7 +99,7 @@ public class AssistantTutorial : MonoBehaviour
         CloseTutorialUI(LandUI);
 
         Text.text = "좋습니댱! 그럼 출발합니댱! \n";
-        SoundManager.Instance.FadeOut(20, 0, 3.0f);
+        SoundManager.Instance.FadeOut(10, 0, 3.0f);
         yield return new WaitForSeconds(dialogSpeed);
         OnOffDialog();
         yield return new WaitForSeconds(dialogSpeed);
@@ -133,7 +135,11 @@ public class AssistantTutorial : MonoBehaviour
         return DialogFlag;
     }
 
-    public void OpenTutorialUI(GameObject ui)
+	#endregion
+
+	#region UI 작용
+
+	public void OpenTutorialUI(GameObject ui)
     {
         ui.transform.localScale = Vector3.zero;
 
@@ -154,4 +160,6 @@ public class AssistantTutorial : MonoBehaviour
     {
         iTween.MoveAdd(gameObject, Vector3.up * 3f, 1.5f);
     }
+
+	#endregion
 }

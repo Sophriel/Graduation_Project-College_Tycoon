@@ -14,6 +14,8 @@ public class ResultPanel : MonoBehaviour
 	public TextMeshProUGUI SchoolPoint;
 	public TextMeshProUGUI Grade;
 
+	#region OnClick 구현
+
 	public void OnClick()
 	{
 		SoundManager.Instance.PlayEffect((int)SoundManager.Effect.MenuOpen);
@@ -56,6 +58,8 @@ public class ResultPanel : MonoBehaviour
 	{
 		gameObject.SetActive(false);
 	}
+
+	#endregion
 
 	public void MoveToMainMenu()
 	{

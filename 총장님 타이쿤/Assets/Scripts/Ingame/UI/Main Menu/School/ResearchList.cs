@@ -16,6 +16,8 @@ public class ResearchList : MonoBehaviour
 	public delegate void ResearchCompleteEvent(Research research);
 	private event ResearchCompleteEvent onResearchComplete;
 
+	#region 갱신
+
 	void OnEnable()
     {
 		UpdateProfessors();
@@ -37,6 +39,10 @@ public class ResearchList : MonoBehaviour
 			}
 		}
 	}
+
+	#endregion
+
+	#region 진행
 
 	public void OnClickStart(Research research)
 	{
@@ -62,4 +68,6 @@ public class ResearchList : MonoBehaviour
 		researchInProgress.Remove(research);
 		Destroy(research.gameObject);
 	}
+
+	#endregion
 }

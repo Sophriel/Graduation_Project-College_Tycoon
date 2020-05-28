@@ -117,17 +117,17 @@ public class Major : Department
 		ResearchSpeed += professor.Researching * (professor.Fame / 20);
 	}
 
-	public override void Seminar()
+	public override bool Seminar(Seminar seminar)
 	{
-		GameManager.Instance.SpendMoney(50000);
-
-		foreach (Professor p in Professors)
+		if (!GameManager.Instance.CanSpendMoney(10000 * Professors.Count))
 		{
-			p.Fame += Random.Range(0, 2);
-			p.Teaching += Random.Range(1, 10);
-			p.Researching += Random.Range(1, 10);
-			p.Task += Random.Range(1, 10);
+			return false;
 		}
+
+		GameManager.Instance.SpendMoney(10000 * Professors.Count);
+		seminar.StartSemninar(Professors);
+
+		return true;
 	}
 
 	#endregion

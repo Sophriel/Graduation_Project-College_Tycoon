@@ -16,7 +16,6 @@ public class College : Department
 {
 	public Major[] SubDepts;
 
-
 	private void Start()
 	{
 		DeptManager.Instance.AddPlusButtonEvent(SetActiveThis);

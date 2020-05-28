@@ -14,7 +14,9 @@ public class BuildingCategoryButton : MonoBehaviour
         ParentBar = GetComponentInParent<BuildMenuBar>();
     }
 
-    public void OnClick()
+	#region OnClick 구현
+
+	public void OnClick()
     {
         SoundManager.Instance.PlayEffect((int)SoundManager.Effect.Click);
 
@@ -54,4 +56,6 @@ public class BuildingCategoryButton : MonoBehaviour
 
         ParentBar.OpenedButton = null;
     }
+
+	#endregion
 }

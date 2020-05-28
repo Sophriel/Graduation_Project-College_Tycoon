@@ -50,15 +50,6 @@ public class SoundManager : MonoBehaviour
     public List<AudioClip> BGMs;
     public List<AudioClip> SoundEffects;
 
-    public enum Effect
-    {
-        Click = 0,
-        Cancel,
-        MenuOpen,
-        MenuClose,
-        Build,
-        Cant
-    }
 
     #region BGM
 
@@ -85,10 +76,24 @@ public class SoundManager : MonoBehaviour
         BGMSource.volume = volume / 100f;
     }
 
-    #endregion
+	#endregion
 
-    public void PlayEffect(int effect)
+	#region FX
+
+    public enum Effect
+    {
+        Click = 0,
+        Cancel,
+        MenuOpen,
+        MenuClose,
+        Build,
+        Cant
+    }
+
+	public void PlayEffect(int effect)
     {
         EffectSource.PlayOneShot(SoundEffects[effect]);
     }
+
+	#endregion
 }

@@ -277,14 +277,15 @@ public class DeptManager : MonoBehaviour
 
 	}
 
+	public Seminar SeminarSlider;
+
 	public void CurrentDept_Seminar()
 	{
-		if (!GameManager.Instance.CanSpendMoney(50000))
+		if (!CurrentDept.Seminar(SeminarSlider))
 		{
 			return;
 		}
 
-		CurrentDept.Seminar();
 		onSeminarEvent?.Invoke();
 		onSeminarEvent = null;
 	}

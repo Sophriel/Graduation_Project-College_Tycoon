@@ -79,7 +79,6 @@
     <Compile Include="Assets\Scripts\Ingame\Character\Professor.cs" />
     <Compile Include="Assets\Scripts\Ingame\Character\Student.cs" />
     <Compile Include="Assets\Scripts\Ingame\GameManager.cs" />
-    <Compile Include="Assets\Scripts\Ingame\GUICamera.cs" />
     <Compile Include="Assets\Scripts\Ingame\IngameTutorial.cs" />
     <Compile Include="Assets\Scripts\Ingame\MainCamera.cs" />
     <Compile Include="Assets\Scripts\Ingame\MouseManager.cs" />
@@ -102,6 +101,7 @@
     <Compile Include="Assets\Scripts\Ingame\UI\Main Menu\School\Major.cs" />
     <Compile Include="Assets\Scripts\Ingame\UI\Main Menu\School\Research.cs" />
     <Compile Include="Assets\Scripts\Ingame\UI\Main Menu\School\ResearchList.cs" />
+    <Compile Include="Assets\Scripts\Ingame\UI\Main Menu\School\Seminar.cs" />
     <Compile Include="Assets\Scripts\Ingame\UI\ResultPanel.cs" />
     <Compile Include="Assets\Scripts\Main\AssistantTutorial.cs" />
     <Compile Include="Assets\Scripts\Main\MainManager.cs" />

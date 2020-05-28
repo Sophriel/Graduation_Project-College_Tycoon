@@ -7,39 +7,70 @@ public class MainCamera : MonoBehaviour
 {
 	private bool inputLock;
 
-    public Transform Target;
-    private Vector3 camDir;
-    private float camSpeed;
+	public Transform Target;
+	private Vector3 camDir;
+	private float camSpeed;
 
-    //  카메라 이동 변수
-    private Vector3 movement;
-    public float MoveSpeed = 10.0f;
+	//  카메라 이동 변수
+	private Vector3 movement;
+	public float MoveSpeed = 10.0f;
 
-    //  카메라 회전 변수
-    private float xAngle = 30.0f;
-    private float yAngle;
-    public float Sensitivity = 150.0f;
+	//  카메라 회전 변수
+	private float xAngle = 30.0f;
+	private float yAngle;
+	public float Sensitivity = 150.0f;
 
-    //  카메라 줌 변수
-    private float distance = 100.0f;
-    private float minDistance = 5.0f;
-    private float maxDistance = 200.0f;
-    public float ZoomSpeed = 1.0f;
+	//  카메라 줌 변수
+	private float distance = 100.0f;
+	private float minDistance = 5.0f;
+	private float maxDistance = 200.0f;
+	public float ZoomSpeed = 1.0f;
 
-    private void Start()
-    {
-		inputLock = true;
-		iTween.MoveTo(gameObject, iTween.Hash("y", 50.0f, "z", -86.60254f, "time", 3.5f, 
+	private void Start()
+	{
+		lockInput();
+		iTween.MoveTo(gameObject, iTween.Hash("y", 50.0f, "z", -86.60254f, "time", 3.5f,
 			"easetype", iTween.EaseType.easeOutQuart, "oncomplete", "unlockInput", "ignoretimescale", true));
 	}
 
+	private void lockInput()
+	{
+		inputLock = true;
+	}
 	private void unlockInput()
 	{
 		inputLock = false;
 	}
 
-    private void Update()
-    {
+	#region 포커싱
+
+	public void FocusToTarget(Vector3 pos)
+	{
+		iTween.ValueTo(gameObject, iTween.Hash("from", distance, "to", 10f, "time", 2.0f,
+			"easetype", iTween.EaseType.easeOutQuart, "onupdate", "DistUpdate", "ignoretimescale", true));
+		iTween.MoveTo(Target.gameObject, iTween.Hash("position", pos, "time", 2.0f,
+			"easetype", iTween.EaseType.easeOutQuart, "ignoretimescale", true));
+	}
+
+	private void DistUpdate(float dist)
+	{
+		distance = dist;
+	}
+
+	public void EndFocusing()
+	{
+		iTween.ValueTo(gameObject, iTween.Hash("from", distance, "to", 100f, "time", 2.0f,
+			"easetype", iTween.EaseType.easeOutQuart, "onupdate", "DistUpdate", "ignoretimescale", true));
+		iTween.MoveTo(Target.gameObject, iTween.Hash("position", Vector3.zero, "time", 2.0f,
+			"easetype", iTween.EaseType.easeOutQuart, "ignoretimescale", true));
+	}
+
+	#endregion
+
+	#region 이동
+
+	private void Update()
+	{
 		if (!inputLock)
 		{
 			if (Time.timeScale != 1.0f)
@@ -53,8 +84,8 @@ public class MainCamera : MonoBehaviour
 		transform.LookAt(Target.position);
 
 		if (Input.GetKey(KeyCode.R))
-            SceneManager.LoadScene("Ingame");
-    }
+			SceneManager.LoadScene("Ingame");
+	}
 
 	private void InputUpdate()
 	{
@@ -105,4 +136,6 @@ public class MainCamera : MonoBehaviour
 		camDir = Quaternion.Euler(xAngle, yAngle, 0.0f) * Vector3.forward;
 		transform.position = Target.position + (camDir * -distance);
 	}
+
+	#endregion
 }
