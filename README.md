@@ -1,5 +1,6 @@
 # Graduation_Project-College_Tycoon
  B577027 이재형 게임학부 졸업 작품 : 총장님 타이쿤
+ Youtube Link: https://www.youtube.com/watch?v=aLX_KZkq_s0
 
 # 개요
 
