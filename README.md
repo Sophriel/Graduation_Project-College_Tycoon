@@ -22,7 +22,7 @@ Best First Search 알고리즘을 통해 캐릭터의 길 찾기 시스템을 �
 \
 \
 2019 게임학부 기획 공모전 금상 수상작
-\
+
 
 # 라이선스
 
@@ -39,5 +39,4 @@ Best First Search 알고리즘을 통해 캐릭터의 길 찾기 시스템을 �
 @ iTween - PIXELPLACEMENT\
 © TextMeshPro - Unity Technologies\
 @ Pi UI - Jason Beetham
-\
 \
