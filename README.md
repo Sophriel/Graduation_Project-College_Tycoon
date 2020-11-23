@@ -29,12 +29,12 @@ Best First Search 알고리즘을 통해 캐릭터의 길 찾기 시스템을 �
 © Music & SFX - Youtube Audio Library
 \
 \
-© 3D Building Models - VenCreations https://assetstore.unity.com/packages/3d/environments/simplepoly-city-low-poly-assets-58899\
-© Person Models - Alex Lenk https://assetstore.unity.com/packages/3d/characters/humanoids/advanced-people-pack-154474\
-© Terrain Models - LMHPOLY https://assetstore.unity.com/packages/3d/environments/low-poly-modular-terrain-pack-91558\
-© Tree Models - PolyMount https://assetstore.unity.com/packages/3d/vegetation/lowpoly-vegetation-season-pack-lite-96083\
+© 3D Building Models - VenCreations https://assetstore.unity.com/packages/3d/environments/simplepoly-city-low-poly-assets-58899 \
+© Person Models - Alex Lenk https://assetstore.unity.com/packages/3d/characters/humanoids/advanced-people-pack-154474 \
+© Terrain Models - LMHPOLY https://assetstore.unity.com/packages/3d/environments/low-poly-modular-terrain-pack-91558 \
+© Tree Models - PolyMount https://assetstore.unity.com/packages/3d/vegetation/lowpoly-vegetation-season-pack-lite-96083 \
 © Cat Model - Polydactyl https://assetstore.unity.com/packages/3d/characters/animals/lowpoly-toon-cat-lite-66083
 \
 \
-© iTween - PIXELPLACEMENT https://assetstore.unity.com/packages/tools/animation/itween-84\
+© iTween - PIXELPLACEMENT https://assetstore.unity.com/packages/tools/animation/itween-84 \
 © Pi UI - Jason Beetham https://assetstore.unity.com/packages/tools/gui/pi-ui-94296
