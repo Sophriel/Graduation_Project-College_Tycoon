@@ -26,6 +26,7 @@ Best First Search 알고리즘을 통해 캐릭터의 길 찾기 시스템을 �
 
 # 라이선스
 
+© Font - 빙그레 http://www.bingfont.co.kr/about.html \
 © Music & SFX - Youtube Audio Library
 \
 \
